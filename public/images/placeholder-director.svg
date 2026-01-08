@@ -1,0 +1,23 @@
+<svg width="500" height="600" viewBox="0 0 500 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="500" height="600" fill="#1A1A1A"/>
+  
+  <!-- Fond dégradé subtil -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2A2A2A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1A1A1A;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="500" height="600" fill="url(#bgGrad)"/>
+  
+  <!-- Silhouette de personne -->
+  <circle cx="250" cy="200" r="80" fill="#3A3A3A"/>
+  <ellipse cx="250" cy="420" rx="120" ry="150" fill="#3A3A3A"/>
+  
+  <!-- Icône utilisateur stylisée -->
+  <circle cx="250" cy="200" r="60" fill="#D4AF37" opacity="0.3"/>
+  <path d="M250 160 C220 160 200 185 200 210 C200 235 220 260 250 260 C280 260 300 235 300 210 C300 185 280 160 250 160" fill="#D4AF37" opacity="0.5"/>
+  
+  <!-- Texte placeholder -->
+  <text x="250" y="520" font-family="serif" font-size="24" fill="#D4AF37" text-anchor="middle" opacity="0.7">Photo du Directeur</text>
+</svg>

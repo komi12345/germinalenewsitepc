@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500" fill="none">
+  <!-- Placeholder pour couverture de collection -->
+  <!-- Fond avec dégradé -->
+  <defs>
+    <linearGradient id="collectionBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2C5F4F;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3A7A64;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2C5F4F;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="collectionAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#E8A87C;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D4A574;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Fond principal -->
+  <rect width="400" height="500" fill="url(#collectionBg)"/>
+  
+  <!-- Motif décoratif -->
+  <circle cx="50" cy="50" r="100" fill="#F8F6F2" opacity="0.03"/>
+  <circle cx="350" cy="450" r="120" fill="#F8F6F2" opacity="0.03"/>
+  <circle cx="380" cy="100" r="80" fill="#E8A87C" opacity="0.05"/>
+  
+  <!-- Bordure décorative -->
+  <rect x="20" y="20" width="360" height="460" fill="none" stroke="#F8F6F2" stroke-width="1" opacity="0.2"/>
+  
+  <!-- Icône collection de livres au centre -->
+  <g transform="translate(120, 160)">
+    <!-- Pile de livres stylisée -->
+    <!-- Livre 1 (arrière) -->
+    <rect x="20" y="0" width="120" height="150" rx="3" fill="#1E4238" transform="rotate(-5, 80, 75)"/>
+    <rect x="25" y="5" width="3" height="140" fill="#E8A87C" opacity="0.6" transform="rotate(-5, 80, 75)"/>
+    
+    <!-- Livre 2 (milieu) -->
+    <rect x="10" y="10" width="120" height="150" rx="3" fill="#234D40"/>
+    <rect x="15" y="15" width="3" height="140" fill="#E8A87C" opacity="0.7"/>
+    
+    <!-- Livre 3 (avant) -->
+    <rect x="0" y="20" width="120" height="150" rx="3" fill="#2C5F4F"/>
+    <rect x="5" y="25" width="3" height="140" fill="url(#collectionAccent)"/>
+    <!-- Pages visibles -->
+    <rect x="12" y="28" width="100" height="134" rx="2" fill="#F8F6F2"/>
+    <!-- Lignes de texte -->
+    <rect x="20" y="45" width="75" height="3" fill="#2C5F4F" opacity="0.15"/>
+    <rect x="20" y="55" width="70" height="3" fill="#2C5F4F" opacity="0.15"/>
+    <rect x="20" y="65" width="80" height="3" fill="#2C5F4F" opacity="0.15"/>
+    <rect x="20" y="85" width="65" height="3" fill="#2C5F4F" opacity="0.15"/>
+    <rect x="20" y="95" width="75" height="3" fill="#2C5F4F" opacity="0.15"/>
+    <rect x="20" y="115" width="70" height="3" fill="#2C5F4F" opacity="0.15"/>
+    <rect x="20" y="125" width="60" height="3" fill="#2C5F4F" opacity="0.15"/>
+    <rect x="20" y="135" width="75" height="3" fill="#2C5F4F" opacity="0.15"/>
+  </g>
+  
+  <!-- Texte placeholder -->
+  <text x="200" y="370" font-family="Georgia, serif" font-size="16" fill="#F8F6F2" text-anchor="middle" opacity="0.8">Collection</text>
+  <text x="200" y="395" font-family="Georgia, serif" font-size="14" fill="#F8F6F2" text-anchor="middle" opacity="0.6">Image non disponible</text>
+  
+  <!-- Ligne décorative -->
+  <rect x="150" y="415" width="100" height="2" fill="url(#collectionAccent)" opacity="0.6"/>
+  
+  <!-- Petit logo en bas -->
+  <text x="200" y="460" font-family="Georgia, serif" font-size="11" fill="#F8F6F2" text-anchor="middle" opacity="0.5">Éditions Germinale</text>
+</svg>

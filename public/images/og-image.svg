@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" fill="none">
+  <!-- Open Graph Image pour Éditions Germinale -->
+  <!-- Dimensions: 1200x630 (standard OG) -->
+  
+  <defs>
+    <linearGradient id="ogBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2C5F4F;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3A7A64;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2C5F4F;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="ogAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#E8A87C;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#D4A574;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Fond principal -->
+  <rect width="1200" height="630" fill="url(#ogBg)"/>
+  
+  <!-- Motifs décoratifs -->
+  <circle cx="100" cy="100" r="200" fill="#F8F6F2" opacity="0.03"/>
+  <circle cx="1100" cy="530" r="250" fill="#F8F6F2" opacity="0.03"/>
+  <circle cx="1150" cy="80" r="150" fill="#E8A87C" opacity="0.05"/>
+  <circle cx="50" cy="580" r="180" fill="#E8A87C" opacity="0.05"/>
+  
+  <!-- Bordure décorative -->
+  <rect x="40" y="40" width="1120" height="550" fill="none" stroke="#F8F6F2" stroke-width="1" opacity="0.15"/>
+  
+  <!-- Logo/Icône livre stylisé -->
+  <g transform="translate(100, 200)">
+    <!-- Livre ouvert grand -->
+    <path d="M0 180V20C0 10 8 0 20 0C45 0 80 12 100 30C120 12 155 0 180 0C192 0 200 10 200 20V180C200 190 192 195 180 195C155 195 120 183 100 165C80 183 45 195 20 195C8 195 0 190 0 180Z" fill="#1E4238"/>
+    <!-- Ligne centrale -->
+    <path d="M100 30V165" stroke="#F8F6F2" stroke-width="3" stroke-linecap="round"/>
+    <!-- Pages gauche -->
+    <path d="M25 40C45 40 70 48 90 60" stroke="#F8F6F2" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+    <path d="M25 70C45 70 70 78 90 90" stroke="#F8F6F2" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+    <path d="M25 100C45 100 70 108 90 120" stroke="#F8F6F2" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+    <!-- Pages droite -->
+    <path d="M175 40C155 40 130 48 110 60" stroke="#F8F6F2" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+    <path d="M175 70C155 70 130 78 110 90" stroke="#F8F6F2" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+    <path d="M175 100C155 100 130 108 110 120" stroke="#F8F6F2" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+    <!-- Germe/pousse -->
+    <circle cx="100" cy="145" r="8" fill="#E8A87C"/>
+    <path d="M100 137V115" stroke="#E8A87C" stroke-width="3" stroke-linecap="round"/>
+    <path d="M90 125C95 120 100 118 100 115" stroke="#E8A87C" stroke-width="2" stroke-linecap="round" fill="none"/>
+    <path d="M110 125C105 120 100 118 100 115" stroke="#E8A87C" stroke-width="2" stroke-linecap="round" fill="none"/>
+  </g>
+  
+  <!-- Texte principal -->
+  <text x="380" y="260" font-family="Georgia, serif" font-size="28" font-weight="400" fill="#F8F6F2" opacity="0.8">Éditions</text>
+  <text x="380" y="340" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#F8F6F2">Germinale</text>
+  
+  <!-- Ligne décorative -->
+  <rect x="380" y="370" width="200" height="4" fill="url(#ogAccent)"/>
+  
+  <!-- Tagline -->
+  <text x="380" y="430" font-family="Arial, sans-serif" font-size="32" fill="#F8F6F2" opacity="0.9">La littérature qui vous ressemble</text>
+  
+  <!-- Sous-texte -->
+  <text x="380" y="480" font-family="Arial, sans-serif" font-size="20" fill="#F8F6F2" opacity="0.6">Maison d'édition • Littérature africaine • Livres numériques</text>
+  
+  <!-- URL en bas -->
+  <text x="600" y="590" font-family="Arial, sans-serif" font-size="18" fill="#F8F6F2" text-anchor="middle" opacity="0.5">editiongerminale.com</text>
+</svg>

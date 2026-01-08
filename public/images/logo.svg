@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" fill="none">
+  <!-- Logo Éditions Germinale -->
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2C5F4F;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3A7A64;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Icône livre stylisé -->
+  <g transform="translate(5, 8)">
+    <!-- Livre ouvert -->
+    <path d="M0 32V4C0 2 1.5 0 4 0C8 0 14 2 17 5C20 2 26 0 30 0C32.5 0 34 2 34 4V32C34 34 32.5 35 30 35C26 35 20 33 17 30C14 33 8 35 4 35C1.5 35 0 34 0 32Z" fill="url(#logoGradient)"/>
+    <!-- Ligne centrale du livre -->
+    <path d="M17 5V30" stroke="#F8F6F2" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Pages gauche -->
+    <path d="M4 6C7 6 12 7 15 9" stroke="#F8F6F2" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+    <path d="M4 12C7 12 12 13 15 15" stroke="#F8F6F2" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+    <path d="M4 18C7 18 12 19 15 21" stroke="#F8F6F2" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+    <!-- Pages droite -->
+    <path d="M30 6C27 6 22 7 19 9" stroke="#F8F6F2" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+    <path d="M30 12C27 12 22 13 19 15" stroke="#F8F6F2" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+    <path d="M30 18C27 18 22 19 19 21" stroke="#F8F6F2" stroke-width="1" stroke-linecap="round" opacity="0.7"/>
+    <!-- Petite pousse/germe -->
+    <circle cx="17" cy="26" r="2" fill="#E8A87C"/>
+    <path d="M17 24V20" stroke="#E8A87C" stroke-width="1.5" stroke-linecap="round"/>
+    <path d="M15 22C16 21 17 21 17 20" stroke="#E8A87C" stroke-width="1" stroke-linecap="round" fill="none"/>
+    <path d="M19 22C18 21 17 21 17 20" stroke="#E8A87C" stroke-width="1" stroke-linecap="round" fill="none"/>
+  </g>
+  
+  <!-- Texte "Éditions" -->
+  <text x="48" y="22" font-family="Georgia, serif" font-size="12" font-weight="400" fill="#2C5F4F">Éditions</text>
+  
+  <!-- Texte "Germinale" -->
+  <text x="48" y="40" font-family="Georgia, serif" font-size="18" font-weight="700" fill="#2C5F4F">Germinale</text>
+</svg>
