@@ -68,9 +68,9 @@ function LinkedInIcon({ className }: { className?: string }) {
 function MapEmbed() {
   return (
     <div className="relative w-full h-48 rounded-xl overflow-hidden bg-gold/10">
-      {/* Carte Google Maps - Adresse placeholder à Lomé, Togo */}
+      {/* Carte Google Maps - Recherche "Les Editions Germinale" aux coordonnées spécifiées */}
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.521260322283!2d1.2123!3d6.1319!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMDcnNTQuOCJOIDHCsDEyJzQ0LjMiRQ!5e0!3m2!1sfr!2stg!4v1704067200000!5m2!1sfr!2stg"
+        src="https://maps.google.com/maps?q=Les%20Editions%20Germinale&ll=6.2360676,1.18908594&z=17&hl=fr&output=embed"
         width="100%"
         height="100%"
         style={{ border: 0 }}
@@ -82,7 +82,7 @@ function MapEmbed() {
       />
       {/* Overlay avec bouton "Obtenir l'itinéraire" */}
       <a
-        href="https://www.google.com/maps/dir/?api=1&destination=6.1319,1.2123"
+        href="https://maps.google.com/maps/search/Les%20Editions%20Germinale/@6.2360676,1.18908594,17z?hl=fr"
         target="_blank"
         rel="noopener noreferrer"
         className={cn(

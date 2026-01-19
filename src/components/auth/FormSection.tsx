@@ -1,141 +1,239 @@
 'use client';
 
+import { useState } from 'react';
 import { TabSwitcher, type AuthTab } from './TabSwitcher';
 import { LoginForm } from './LoginForm';
 import { RegisterForm } from './RegisterForm';
 import { SocialAuthButtons } from './SocialAuthButtons';
+import { signIn, signUp, signInWithGoogle, resetPassword } from '@/src/lib/actions/auth';
 
 export interface FormSectionProps {
   activeTab: AuthTab;
   onTabChange: (tab: AuthTab) => void;
 }
 
-/**
- * Section formulaire complète pour la page d'authentification
- * Contient le header, les onglets, les formulaires, l'authentification sociale et les liens légaux
- * Requirements: 2.1, 2.2, 2.3, 6.1, 7.1, 7.2, 7.3
- */
 export function FormSection({ activeTab, onTabChange }: FormSectionProps) {
-  // Handlers pour les formulaires (à connecter ultérieurement à NextAuth)
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+  const [forgotPasswordEmail, setForgotPasswordEmail] = useState('');
+  const [isResettingPassword, setIsResettingPassword] = useState(false);
+
   const handleLoginSubmit = async (data: { email: string; password: string; rememberMe: boolean }) => {
-    console.log('Login submitted:', data);
-    // TODO: Intégrer avec NextAuth
+    setError(null);
+    setSuccess(null);
+    
+    const formData = new FormData();
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+    
+    const result = await signIn(formData);
+    
+    if (result?.error) {
+      setError(result.error);
+      return;
+    }
+
+    if (typeof window !== "undefined") {
+      window.location.href = "/";
+    }
   };
 
   const handleRegisterSubmit = async (data: { fullName: string; email: string; password: string; confirmPassword: string }) => {
-    console.log('Register submitted:', data);
-    // TODO: Intégrer avec NextAuth
+    setError(null);
+    setSuccess(null);
+    
+    const formData = new FormData();
+    formData.append('email', data.email);
+    formData.append('password', data.password);
+    formData.append('fullName', data.fullName);
+    
+    const result = await signUp(formData);
+    
+    if (result?.error) {
+      setError(result.error);
+    } else if (result?.success) {
+      setSuccess(result.success);
+    }
   };
 
   const handleForgotPassword = () => {
-    console.log('Forgot password clicked');
-    // TODO: Naviguer vers la page de récupération de mot de passe
+    setShowForgotPassword(true);
+    setError(null);
+    setSuccess(null);
   };
 
-  const handleGoogleAuth = () => {
-    console.log('Google auth clicked');
-    // TODO: Intégrer avec NextAuth Google provider
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setSuccess(null);
+    setIsResettingPassword(true);
+    
+    const formData = new FormData();
+    formData.append('email', forgotPasswordEmail);
+    
+    const result = await resetPassword(formData);
+    
+    setIsResettingPassword(false);
+    
+    if (result?.error) {
+      setError(result.error);
+    } else if (result?.success) {
+      setSuccess(result.success);
+      setTimeout(() => {
+        setShowForgotPassword(false);
+        setForgotPasswordEmail('');
+      }, 3000);
+    }
+  };
+
+  const handleGoogleAuth = async () => {
+    setError(null);
+    await signInWithGoogle();
   };
 
   const handleAppleAuth = () => {
-    console.log('Apple auth clicked');
-    // TODO: Intégrer avec NextAuth Apple provider
+    setError('Connexion Apple non disponible pour le moment');
   };
 
-  // Fonction pour basculer vers l'autre onglet
   const handleSwitchTab = () => {
+    setError(null);
+    setSuccess(null);
+    setShowForgotPassword(false);
     onTabChange(activeTab === 'login' ? 'register' : 'login');
   };
 
   return (
     <div className="w-full h-full flex flex-col justify-center px-6 py-8 md:px-12 lg:px-16 bg-white">
       <div className="w-full max-w-md mx-auto">
-        {/* Header avec nom de la plateforme */}
         <header className="text-center mb-8">
-          {/* Nom de la plateforme en or */}
           <p className="text-sm font-semibold tracking-widest text-gold uppercase mb-3" aria-label="Éditions Germinale">
             EDITIONS GERMINALE
           </p>
           
-          {/* Titre principal - h1 pour accessibilité */}
           <h1 className="text-3xl md:text-4xl font-serif font-bold text-dark mb-2">
-            Bienvenue
+            {showForgotPassword ? 'Mot de passe oublié' : 'Bienvenue'}
           </h1>
           
-          {/* Sous-titre descriptif */}
           <p className="text-gray-500 text-sm">
-            Connectez-vous pour accéder à votre bibliothèque.
+            {showForgotPassword 
+              ? 'Entrez votre email pour recevoir un lien de réinitialisation.'
+              : 'Connectez-vous pour accéder à votre bibliothèque.'
+            }
           </p>
         </header>
 
-        {/* Tab Switcher */}
-        <div className="flex justify-center mb-8">
-          <TabSwitcher activeTab={activeTab} onTabChange={onTabChange} />
-        </div>
+        {error && (
+          <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600 text-sm" role="alert">
+            {error}
+          </div>
+        )}
 
-        {/* Formulaires conditionnels */}
-        <section
-          role="tabpanel"
-          id={activeTab === 'login' ? 'panel-login' : 'panel-register'}
-          aria-labelledby={activeTab === 'login' ? 'tab-login' : 'tab-register'}
-          tabIndex={0}
-        >
-          {activeTab === 'login' ? (
-            <LoginForm
-              onSubmit={handleLoginSubmit}
-              onForgotPassword={handleForgotPassword}
+        {success && (
+          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-600 text-sm" role="alert">
+            {success}
+          </div>
+        )}
+
+        {showForgotPassword ? (
+          <form onSubmit={handleResetPassword} className="space-y-5">
+            <div>
+              <label htmlFor="reset-email" className="block text-sm font-medium text-dark mb-2">
+                Adresse e-mail
+              </label>
+              <input
+                id="reset-email"
+                type="email"
+                value={forgotPasswordEmail}
+                onChange={(e) => setForgotPasswordEmail(e.target.value)}
+                placeholder="exemple@email.com"
+                required
+                className="w-full px-4 py-3 rounded-lg border border-gray-200 text-dark placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent"
+              />
+            </div>
+            
+            <button
+              type="submit"
+              disabled={isResettingPassword}
+              className="w-full py-3 px-6 rounded-lg bg-gold text-dark font-semibold transition-all duration-200 hover:bg-gold-dark focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 disabled:opacity-50"
+            >
+              {isResettingPassword ? 'Envoi en cours...' : 'Envoyer le lien'}
+            </button>
+            
+            <button
+              type="button"
+              onClick={() => setShowForgotPassword(false)}
+              className="w-full text-center text-sm text-gray-600 hover:text-gold transition-colors"
+            >
+              Retour à la connexion
+            </button>
+          </form>
+        ) : (
+          <>
+            <div className="flex justify-center mb-8">
+              <TabSwitcher activeTab={activeTab} onTabChange={onTabChange} />
+            </div>
+
+            <section
+              role="tabpanel"
+              id={activeTab === 'login' ? 'panel-login' : 'panel-register'}
+              aria-labelledby={activeTab === 'login' ? 'tab-login' : 'tab-register'}
+              tabIndex={0}
+            >
+              {activeTab === 'login' ? (
+                <LoginForm
+                  onSubmit={handleLoginSubmit}
+                  onForgotPassword={handleForgotPassword}
+                />
+              ) : (
+                <RegisterForm onSubmit={handleRegisterSubmit} />
+              )}
+            </section>
+
+            <div className="relative my-8" role="separator" aria-orientation="horizontal">
+              <div className="absolute inset-0 flex items-center" aria-hidden="true">
+                <div className="w-full border-t border-gray-200" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-4 bg-white text-gray-500">
+                  Ou continuer avec
+                </span>
+              </div>
+            </div>
+
+            <SocialAuthButtons
+              onGoogleClick={handleGoogleAuth}
+              onAppleClick={handleAppleAuth}
             />
-          ) : (
-            <RegisterForm onSubmit={handleRegisterSubmit} />
-          )}
-        </section>
 
-        {/* Séparateur "Ou continuer avec" */}
-        <div className="relative my-8" role="separator" aria-orientation="horizontal">
-          <div className="absolute inset-0 flex items-center" aria-hidden="true">
-            <div className="w-full border-t border-gray-200" />
-          </div>
-          <div className="relative flex justify-center text-sm">
-            <span className="px-4 bg-white text-gray-500">
-              Ou continuer avec
-            </span>
-          </div>
-        </div>
+            <div className="text-center mt-8">
+              {activeTab === 'login' ? (
+                <p className="text-sm text-gray-600">
+                  Vous n&apos;avez pas de compte ?{' '}
+                  <button
+                    type="button"
+                    onClick={handleSwitchTab}
+                    className="text-gold font-medium hover:text-gold/80 transition-colors focus:outline-none focus:underline"
+                  >
+                    Créer un compte
+                  </button>
+                </p>
+              ) : (
+                <p className="text-sm text-gray-600">
+                  Vous avez déjà un compte ?{' '}
+                  <button
+                    type="button"
+                    onClick={handleSwitchTab}
+                    className="text-gold font-medium hover:text-gold/80 transition-colors focus:outline-none focus:underline"
+                  >
+                    Se connecter
+                  </button>
+                </p>
+              )}
+            </div>
+          </>
+        )}
 
-        {/* Boutons d'authentification sociale */}
-        <SocialAuthButtons
-          onGoogleClick={handleGoogleAuth}
-          onAppleClick={handleAppleAuth}
-        />
-
-        {/* Lien de basculement */}
-        <div className="text-center mt-8">
-          {activeTab === 'login' ? (
-            <p className="text-sm text-gray-600">
-              Vous n&apos;avez pas de compte ?{' '}
-              <button
-                type="button"
-                onClick={handleSwitchTab}
-                className="text-gold font-medium hover:text-gold/80 transition-colors focus:outline-none focus:underline"
-              >
-                Créer un compte
-              </button>
-            </p>
-          ) : (
-            <p className="text-sm text-gray-600">
-              Vous avez déjà un compte ?{' '}
-              <button
-                type="button"
-                onClick={handleSwitchTab}
-                className="text-gold font-medium hover:text-gold/80 transition-colors focus:outline-none focus:underline"
-              >
-                Se connecter
-              </button>
-            </p>
-          )}
-        </div>
-
-        {/* Liens légaux */}
         <nav className="text-center mt-8 pt-6 border-t border-gray-100" aria-label="Liens légaux">
           <p className="text-xs text-gray-400">
             En continuant, vous acceptez nos{' '}
