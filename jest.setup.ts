@@ -27,6 +27,7 @@ jest.mock('next/link', () => ({
 
 // Polyfill TextEncoder/TextDecoder for Next.js 13+ environment in Jest
 if (typeof global.TextEncoder === 'undefined') {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   const { TextEncoder, TextDecoder } = require('util');
   global.TextEncoder = TextEncoder;
   global.TextDecoder = TextDecoder;
@@ -34,10 +35,10 @@ if (typeof global.TextEncoder === 'undefined') {
 
 // Polyfill Request/Response/Headers for Next.js 13+
 if (typeof global.Headers === 'undefined') {
-  // @ts-ignore
+  // Polyfill for test environment
   global.Headers = class Headers {
     private map = new Map<string, string>();
-    constructor(init?: any) {
+    constructor(init?: Record<string, string>) {
       if (init) {
         Object.keys(init).forEach(key => this.map.set(key, init[key]));
       }
@@ -54,30 +55,30 @@ if (typeof global.Headers === 'undefined') {
     forEach(callback: (value: string, key: string) => void) {
       this.map.forEach(callback);
     }
-  } as any;
+  } as unknown as typeof Headers;
 }
 
 if (typeof global.Request === 'undefined') {
-  // @ts-ignore
+  // Polyfill for test environment
   global.Request = class Request {
     url: string;
     method: string;
     headers: Headers;
-    constructor(input: string | { url: string }, init?: any) {
+    constructor(input: string | { url: string }, init?: { method?: string; headers?: Record<string, string> }) {
       this.url = typeof input === 'string' ? input : input.url;
       this.method = init?.method || 'GET';
       this.headers = new Headers(init?.headers);
     }
-  } as any;
+  } as unknown as typeof Request;
 }
 
 if (typeof global.Response === 'undefined') {
-  // @ts-ignore
+  // Polyfill for test environment
   global.Response = class Response {
     status: number;
     ok: boolean;
     headers: Headers;
-    constructor(body?: any, init?: any) {
+    constructor(body?: unknown, init?: { status?: number; headers?: Record<string, string> }) {
       this.status = init?.status || 200;
       this.ok = this.status >= 200 && this.status < 300;
       this.headers = new Headers(init?.headers);
@@ -85,5 +86,5 @@ if (typeof global.Response === 'undefined') {
     json() {
       return Promise.resolve({});
     }
-  } as any;
+  } as unknown as typeof Response;
 }

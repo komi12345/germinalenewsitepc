@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "name": "Validation Complète Pré-Commit",
+  "description": "Exécute automatiquement les vérifications TypeScript (tsc --noEmit), ESLint (npm run lint) et Prettier (format:check) avant chaque commit pour garantir un code sans erreur conforme aux standards 2026 du document de pilotage technique KIRO",
+  "version": "1",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "🔍 VALIDATION PRÉ-COMMIT AUTOMATIQUE\n\nAvant de committer le code, tu DOIS exécuter les commandes suivantes dans l'ordre et vérifier qu'elles réussissent toutes sans erreur :\n\n1️⃣ **Vérification TypeScript (OBLIGATOIRE)**\n```bash\nnpx tsc --noEmit\n```\n✅ Résultat attendu : Aucune erreur TypeScript\n❌ Si erreurs : CORRIGER immédiatement avant de continuer\n\n2️⃣ **Vérification ESLint (OBLIGATOIRE)**\n```bash\nnpm run lint\n```\n✅ Résultat attendu : Aucune erreur ESLint\n❌ Si erreurs : CORRIGER immédiatement avant de continuer\n\n3️⃣ **Vérification Prettier (OBLIGATOIRE)**\n```bash\nnpm run format:check\n```\n✅ Résultat attendu : Tous les fichiers sont correctement formatés\n❌ Si erreurs : Exécuter `npm run format` puis revérifier\n\n4️⃣ **Build Next.js (RECOMMANDÉ)**\n```bash\nnpm run build\n```\n✅ Résultat attendu : Build réussi sans erreurs\n❌ Si erreurs : CORRIGER immédiatement\n\n📋 **RAPPORT DE VALIDATION**\nAprès avoir exécuté toutes les commandes, présente un rapport structuré :\n\n```\n✅ RAPPORT DE VALIDATION PRÉ-COMMIT\n\n**TypeScript :** [✅ Aucune erreur / ❌ X erreurs détectées]\n**ESLint :** [✅ Aucune erreur / ❌ X erreurs détectées]\n**Prettier :** [✅ Formatage correct / ❌ Fichiers non formatés]\n**Build :** [✅ Succès / ❌ Échec]\n\n**Statut global :** [✅ PRÊT POUR COMMIT / ❌ CORRECTIONS NÉCESSAIRES]\n```\n\n⚠️ **RÈGLE ABSOLUE** : Si UNE SEULE vérification échoue, le commit est INTERDIT jusqu'à correction complète.\n\n🎯 **Conformité Document de Pilotage** : Cette validation garantit le respect des standards 2026 (Zéro erreur TypeScript, Zéro erreur ESLint, Code formaté uniformément)."
+  },
+  "workspaceFolderName": "germinalenewsitepc",
+  "shortName": "pre-commit-validation-complete"
+}

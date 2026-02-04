@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { cn } from "../../lib/utils";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { cn } from '../../lib/utils';
 
 interface PaginationProps {
   currentPage: number;
@@ -119,7 +119,7 @@ export function Pagination({
   return (
     <nav
       aria-label="Pagination"
-      className={cn("flex justify-center items-center gap-2", className)}
+      className={cn('flex justify-center items-center gap-2', className)}
     >
       {/* Bouton précédent */}
       <button
@@ -127,10 +127,10 @@ export function Pagination({
         disabled={isFirstPage}
         aria-label="Page précédente"
         className={cn(
-          "w-10 h-10 flex items-center justify-center rounded-lg border transition-colors",
+          'w-10 h-10 flex items-center justify-center rounded-lg border transition-colors',
           isFirstPage
-            ? "bg-dark-lighter text-light-dimmed cursor-not-allowed border-dark-lighter"
-            : "bg-dark-light text-light hover:bg-dark-lighter hover:text-gold border-dark-lighter"
+            ? 'bg-dark-lighter text-light-dimmed cursor-not-allowed border-dark-lighter'
+            : 'bg-dark-light text-light hover:bg-dark-lighter hover:text-gold border-dark-lighter'
         )}
       >
         <ChevronLeft className="w-5 h-5" />
@@ -157,12 +157,12 @@ export function Pagination({
             key={page}
             onClick={() => handlePageClick(page)}
             aria-label={`Page ${page}`}
-            aria-current={isActive ? "page" : undefined}
+            aria-current={isActive ? 'page' : undefined}
             className={cn(
-              "w-10 h-10 flex items-center justify-center rounded-lg border transition-colors font-medium",
+              'w-10 h-10 flex items-center justify-center rounded-lg border transition-colors font-medium',
               isActive
-                ? "bg-gold text-dark border-gold"
-                : "bg-dark-light text-light hover:bg-dark-lighter hover:text-gold border-dark-lighter"
+                ? 'bg-gold text-dark border-gold'
+                : 'bg-dark-light text-light hover:bg-dark-lighter hover:text-gold border-dark-lighter'
             )}
           >
             {page}
@@ -176,10 +176,10 @@ export function Pagination({
         disabled={isLastPage}
         aria-label="Page suivante"
         className={cn(
-          "w-10 h-10 flex items-center justify-center rounded-lg border transition-colors",
+          'w-10 h-10 flex items-center justify-center rounded-lg border transition-colors',
           isLastPage
-            ? "bg-dark-lighter text-light-dimmed cursor-not-allowed border-dark-lighter"
-            : "bg-dark-light text-light hover:bg-dark-lighter hover:text-gold border-dark-lighter"
+            ? 'bg-dark-lighter text-light-dimmed cursor-not-allowed border-dark-lighter'
+            : 'bg-dark-light text-light hover:bg-dark-lighter hover:text-gold border-dark-lighter'
         )}
       >
         <ChevronRight className="w-5 h-5" />

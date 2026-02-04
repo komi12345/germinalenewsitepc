@@ -1,9 +1,9 @@
 /**
  * Property-Based Tests for CollectionListCard
- * 
+ *
  * **Property 4: Badge Display Logic**
  * **Validates: Requirements 5.4, 5.5**
- * 
+ *
  * For any collection:
  * - If isNew is true, the "Nouveau" badge SHALL be displayed
  * - If isPopular is true, the "Populaire" badge SHALL be displayed
@@ -17,11 +17,14 @@ import { CollectionListCard, getBadgeType } from '../CollectionListCard';
 // Generator for valid collection data
 const collectionArbitrary = fc.record({
   id: fc.uuid(),
-  name: fc.string({ minLength: 2, maxLength: 100 })
+  name: fc
+    .string({ minLength: 2, maxLength: 100 })
     .filter(s => s.trim().length >= 2),
-  slug: fc.string({ minLength: 1, maxLength: 50 })
+  slug: fc
+    .string({ minLength: 1, maxLength: 50 })
     .filter(s => /^[a-z0-9]+(-[a-z0-9]+)*$/.test(s)),
-  description: fc.string({ minLength: 10, maxLength: 500 })
+  description: fc
+    .string({ minLength: 10, maxLength: 500 })
     .filter(s => s.trim().length >= 10),
   coverImage: fc.constantFrom(
     '/images/placeholder-collection.svg',
@@ -40,25 +43,26 @@ describe('CollectionListCard - Property-Based Tests', () => {
 
   /**
    * Feature: collections-page, Property 4: Badge Display Logic
-   * 
+   *
    * For any collection, if isNew is true, the "Nouveau" badge SHALL be displayed;
    * if isPopular is true, the "Populaire" badge SHALL be displayed;
    * both badges SHALL never appear simultaneously on the same card.
-   * 
+   *
    * **Validates: Requirements 5.4, 5.5**
    */
   it('should display correct badge based on isNew and isPopular flags, never both', () => {
     fc.assert(
-      fc.property(collectionArbitrary, (collection) => {
+      fc.property(collectionArbitrary, collection => {
         cleanup();
-        
+
         render(<CollectionListCard collection={collection} />);
 
         const nouveauBadge = screen.queryByTestId('badge-new');
         const populaireBadge = screen.queryByTestId('badge-popular');
 
         // Property: Both badges SHALL never appear simultaneously
-        const bothBadgesPresent = nouveauBadge !== null && populaireBadge !== null;
+        const bothBadgesPresent =
+          nouveauBadge !== null && populaireBadge !== null;
         expect(bothBadgesPresent).toBe(false);
 
         // Property: If isNew is true, "Nouveau" badge SHALL be displayed

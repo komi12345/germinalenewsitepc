@@ -1,24 +1,24 @@
-"use client";
+'use client';
 
-import { cn } from "../../lib/utils";
-import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
-import { useState } from "react";
+import { cn } from '../../lib/utils';
+import { Mail, Phone, MapPin, ExternalLink } from 'lucide-react';
+import { useState } from 'react';
 
 /**
  * Informations de contact
  */
 const contactInfo = {
   email: {
-    value: "hello@editionsgerminale.com",
-    note: "Nous répondons sous 24 heures.",
+    value: 'hello@editionsgerminale.com',
+    note: 'Nous répondons sous 24 heures.',
   },
   phone: {
-    value: "+228 90 12 34 56",
-    note: "Lun-Ven, 9h - 18h GMT",
+    value: '+228 90 12 34 56',
+    note: 'Lun-Ven, 9h - 18h GMT',
   },
   address: {
-    line1: "123 Boulevard du Livre,",
-    line2: "Lomé, Togo",
+    line1: '123 Boulevard du Livre,',
+    line2: 'Lomé, Togo',
   },
 };
 
@@ -26,12 +26,12 @@ const contactInfo = {
  * Options de sujet pour le formulaire
  */
 const subjectOptions = [
-  { value: "", label: "Sélectionnez un sujet..." },
-  { value: "general", label: "Question générale" },
-  { value: "order", label: "Commande" },
-  { value: "manuscript", label: "Manuscrit" },
-  { value: "partnership", label: "Partenariat" },
-  { value: "other", label: "Autre" },
+  { value: '', label: 'Sélectionnez un sujet...' },
+  { value: 'general', label: 'Question générale' },
+  { value: 'order', label: 'Commande' },
+  { value: 'manuscript', label: 'Manuscrit' },
+  { value: 'partnership', label: 'Partenariat' },
+  { value: 'other', label: 'Autre' },
 ];
 
 /**
@@ -61,7 +61,6 @@ function LinkedInIcon({ className }: { className?: string }) {
   );
 }
 
-
 /**
  * Composant carte Google Maps intégrée
  */
@@ -86,13 +85,13 @@ function MapEmbed() {
         target="_blank"
         rel="noopener noreferrer"
         className={cn(
-          "absolute bottom-3 left-3 right-3",
-          "bg-dark/95 backdrop-blur-sm",
-          "px-4 py-2.5 rounded-lg",
-          "flex items-center justify-between",
-          "text-light font-medium text-sm",
-          "hover:bg-dark transition-colors",
-          "shadow-md"
+          'absolute bottom-3 left-3 right-3',
+          'bg-dark/95 backdrop-blur-sm',
+          'px-4 py-2.5 rounded-lg',
+          'flex items-center justify-between',
+          'text-light font-medium text-sm',
+          'hover:bg-dark transition-colors',
+          'shadow-md'
         )}
       >
         <span>Obtenir l&apos;itinéraire</span>
@@ -107,37 +106,39 @@ function MapEmbed() {
  */
 function ContactForm() {
   const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    subject: "",
-    message: "",
+    fullName: '',
+    email: '',
+    subject: '',
+    message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     // TODO: Implémenter l'envoi du formulaire
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 1000));
     setIsSubmitting(false);
     // Reset form
-    setFormData({ fullName: "", email: "", subject: "", message: "" });
+    setFormData({ fullName: '', email: '', subject: '', message: '' });
   };
 
   const inputClasses = cn(
-    "w-full px-4 py-3 rounded-lg",
-    "border border-dark-lighter",
-    "bg-dark-light text-light",
-    "placeholder:text-light-dimmed",
-    "focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold",
-    "transition-all duration-200"
+    'w-full px-4 py-3 rounded-lg',
+    'border border-dark-lighter',
+    'bg-dark-light text-light',
+    'placeholder:text-light-dimmed',
+    'focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold',
+    'transition-all duration-200'
   );
 
   return (
@@ -145,7 +146,10 @@ function ContactForm() {
       {/* Nom et Email sur la même ligne */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label htmlFor="fullName" className="block text-sm font-medium text-light mb-2">
+          <label
+            htmlFor="fullName"
+            className="block text-sm font-medium text-light mb-2"
+          >
             Nom complet
           </label>
           <input
@@ -160,7 +164,10 @@ function ContactForm() {
           />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-light mb-2">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-light mb-2"
+          >
             Adresse email
           </label>
           <input
@@ -178,7 +185,10 @@ function ContactForm() {
 
       {/* Sujet */}
       <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-light mb-2">
+        <label
+          htmlFor="subject"
+          className="block text-sm font-medium text-light mb-2"
+        >
           Sujet
         </label>
         <select
@@ -186,10 +196,10 @@ function ContactForm() {
           name="subject"
           value={formData.subject}
           onChange={handleChange}
-          className={cn(inputClasses, "appearance-none cursor-pointer")}
+          className={cn(inputClasses, 'appearance-none cursor-pointer')}
           required
         >
-          {subjectOptions.map((option) => (
+          {subjectOptions.map(option => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
@@ -199,7 +209,10 @@ function ContactForm() {
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-light mb-2">
+        <label
+          htmlFor="message"
+          className="block text-sm font-medium text-light mb-2"
+        >
           Message
         </label>
         <textarea
@@ -209,7 +222,7 @@ function ContactForm() {
           onChange={handleChange}
           placeholder="Comment pouvons-nous vous aider ?"
           rows={5}
-          className={cn(inputClasses, "resize-none")}
+          className={cn(inputClasses, 'resize-none')}
           required
         />
       </div>
@@ -217,49 +230,47 @@ function ContactForm() {
       {/* Note et bouton */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <p className="text-sm text-light-dimmed">
-          Note : Pour les soumissions de manuscrits, veuillez consulter nos{" "}
+          Note : Pour les soumissions de manuscrits, veuillez consulter nos{' '}
           <a href="/submit-manuscript" className="text-gold hover:underline">
             directives
-          </a>{" "}
+          </a>{' '}
           avant de nous contacter.
         </p>
         <button
           type="submit"
           disabled={isSubmitting}
           className={cn(
-            "px-8 py-3 rounded-lg",
-            "bg-gold hover:bg-gold-light",
-            "text-dark font-medium",
-            "transition-colors duration-200",
-            "disabled:opacity-50 disabled:cursor-not-allowed",
-            "whitespace-nowrap"
+            'px-8 py-3 rounded-lg',
+            'bg-gold hover:bg-gold-light',
+            'text-dark font-medium',
+            'transition-colors duration-200',
+            'disabled:opacity-50 disabled:cursor-not-allowed',
+            'whitespace-nowrap'
           )}
         >
-          {isSubmitting ? "Envoi..." : "Envoyer le message"}
+          {isSubmitting ? 'Envoi...' : 'Envoyer le message'}
         </button>
       </div>
     </form>
   );
 }
 
-
-
 /**
  * ContactSection - Section de contact de la homepage
- * 
+ *
  * Affiche:
  * - Titre "Démarrons une conversation"
  * - Sous-titre descriptif
  * - Colonne gauche: Informations de contact + Carte + Réseaux sociaux
  * - Colonne droite: Formulaire de contact
  * - Section FAQ rapide en bas
- * 
+ *
  * Positionnée entre AuthorCTASection et TestimonialsSection
  */
 export function ContactSection() {
   return (
     <section
-      className={cn("py-16 md:py-20 px-4", "bg-dark")}
+      className={cn('py-16 md:py-20 px-4', 'bg-dark')}
       data-testid="contact-section"
     >
       <div className="max-w-6xl mx-auto">
@@ -267,17 +278,17 @@ export function ContactSection() {
         <div className="text-center mb-12">
           <h2
             className={cn(
-              "text-2xl md:text-3xl lg:text-4xl",
-              "font-serif font-bold",
-              "text-gold",
-              "mb-4"
+              'text-2xl md:text-3xl lg:text-4xl',
+              'font-serif font-bold',
+              'text-gold',
+              'mb-4'
             )}
           >
             Démarrons une conversation
           </h2>
           <p className="text-light-dimmed max-w-2xl mx-auto">
-            Que vous soyez lecteur avec une question ou auteur avec un manuscrit,
-            nous sommes là pour vous écouter.
+            Que vous soyez lecteur avec une question ou auteur avec un
+            manuscrit, nous sommes là pour vous écouter.
           </p>
         </div>
 
@@ -304,7 +315,9 @@ export function ContactSection() {
                   >
                     {contactInfo.email.value}
                   </a>
-                  <p className="text-xs text-light-dimmed mt-0.5">{contactInfo.email.note}</p>
+                  <p className="text-xs text-light-dimmed mt-0.5">
+                    {contactInfo.email.note}
+                  </p>
                 </div>
               </div>
 
@@ -316,12 +329,14 @@ export function ContactSection() {
                 <div>
                   <p className="font-medium text-light">Appelez-nous</p>
                   <a
-                    href={`tel:${contactInfo.phone.value.replace(/\s/g, "")}`}
+                    href={`tel:${contactInfo.phone.value.replace(/\s/g, '')}`}
                     className="text-gold hover:underline text-sm"
                   >
                     {contactInfo.phone.value}
                   </a>
-                  <p className="text-xs text-light-dimmed mt-0.5">{contactInfo.phone.note}</p>
+                  <p className="text-xs text-light-dimmed mt-0.5">
+                    {contactInfo.phone.note}
+                  </p>
                 </div>
               </div>
 
@@ -332,8 +347,12 @@ export function ContactSection() {
                 </div>
                 <div>
                   <p className="font-medium text-light">Visitez-nous</p>
-                  <p className="text-sm text-light-dimmed">{contactInfo.address.line1}</p>
-                  <p className="text-sm text-light-dimmed">{contactInfo.address.line2}</p>
+                  <p className="text-sm text-light-dimmed">
+                    {contactInfo.address.line1}
+                  </p>
+                  <p className="text-sm text-light-dimmed">
+                    {contactInfo.address.line2}
+                  </p>
                 </div>
               </div>
             </div>
@@ -348,11 +367,11 @@ export function ContactSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  "w-10 h-10 rounded-full",
-                  "border border-dark-lighter bg-dark-light",
-                  "flex items-center justify-center",
-                  "text-light-dimmed hover:text-gold hover:border-gold",
-                  "transition-colors duration-200"
+                  'w-10 h-10 rounded-full',
+                  'border border-dark-lighter bg-dark-light',
+                  'flex items-center justify-center',
+                  'text-light-dimmed hover:text-gold hover:border-gold',
+                  'transition-colors duration-200'
                 )}
                 aria-label="Facebook"
               >
@@ -363,11 +382,11 @@ export function ContactSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  "w-10 h-10 rounded-full",
-                  "border border-dark-lighter bg-dark-light",
-                  "flex items-center justify-center",
-                  "text-light-dimmed hover:text-gold hover:border-gold",
-                  "transition-colors duration-200"
+                  'w-10 h-10 rounded-full',
+                  'border border-dark-lighter bg-dark-light',
+                  'flex items-center justify-center',
+                  'text-light-dimmed hover:text-gold hover:border-gold',
+                  'transition-colors duration-200'
                 )}
                 aria-label="X (Twitter)"
               >
@@ -378,11 +397,11 @@ export function ContactSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={cn(
-                  "w-10 h-10 rounded-full",
-                  "border border-dark-lighter bg-dark-light",
-                  "flex items-center justify-center",
-                  "text-light-dimmed hover:text-gold hover:border-gold",
-                  "transition-colors duration-200"
+                  'w-10 h-10 rounded-full',
+                  'border border-dark-lighter bg-dark-light',
+                  'flex items-center justify-center',
+                  'text-light-dimmed hover:text-gold hover:border-gold',
+                  'transition-colors duration-200'
                 )}
                 aria-label="LinkedIn"
               >
@@ -398,7 +417,8 @@ export function ContactSection() {
                 Envoyez-nous un message
               </h3>
               <p className="text-light-dimmed text-sm mb-6">
-                Remplissez le formulaire ci-dessous et notre équipe vous répondra rapidement.
+                Remplissez le formulaire ci-dessous et notre équipe vous
+                répondra rapidement.
               </p>
               <ContactForm />
             </div>

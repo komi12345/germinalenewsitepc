@@ -46,3 +46,6 @@ next-env.d.ts
 .trae/
 .qoder/
 .vscode/
+
+# Local Netlify folder
+.netlify

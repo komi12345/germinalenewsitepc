@@ -1,5 +1,5 @@
-import { clsx, type ClassValue } from "clsx";
-import { twMerge } from "tailwind-merge";
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 /**
  * Combine les classes CSS avec clsx et tailwind-merge
@@ -15,13 +15,16 @@ export function cn(...inputs: ClassValue[]) {
  * @param inCentimes - Si true, divise par 100 avant formatage (défaut: false)
  * @returns Prix formaté avec suffixe "FCFA" (ex: "15 000 FCFA")
  */
-export function formatPrice(price: number, inCentimes: boolean = false): string {
+export function formatPrice(
+  price: number,
+  inCentimes: boolean = false
+): string {
   const amount = inCentimes ? price / 100 : price;
-  
+
   // Formatage avec séparateur milliers (espace)
   const formattedAmount = Math.round(amount)
     .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-  
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
   return `${formattedAmount} FCFA`;
 }

@@ -77,7 +77,11 @@ export function SocialAuthButtons({
   `;
 
   return (
-    <div className="flex gap-3 w-full" role="group" aria-label="Options d'authentification sociale">
+    <div
+      className="flex gap-3 w-full"
+      role="group"
+      aria-label="Options d'authentification sociale"
+    >
       {/* Bouton Google */}
       <button
         type="button"

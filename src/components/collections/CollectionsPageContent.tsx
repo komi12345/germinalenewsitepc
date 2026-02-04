@@ -1,10 +1,13 @@
-"use client";
+'use client';
 
-import { useState, useMemo } from "react";
-import { CollectionListCard, Collection } from "../collection/CollectionListCard";
-import { SearchAndFilters } from "./SearchAndFilters";
-import { Pagination } from "../ui/Pagination";
-import { cn } from "../../lib/utils";
+import { useState, useMemo } from 'react';
+import {
+  CollectionListCard,
+  Collection,
+} from '../collection/CollectionListCard';
+import { SearchAndFilters } from './SearchAndFilters';
+import { Pagination } from '../ui/Pagination';
+import { cn } from '../../lib/utils';
 
 /**
  * Nombre de collections par page
@@ -23,7 +26,7 @@ export interface CollectionsPageContentProps {
  * Property 1: Search Filter Consistency
  * Pour toute requête de recherche, toutes les collections affichées
  * doivent avoir un nom contenant la requête (case-insensitive)
- * 
+ *
  * @param collections - Liste des collections à filtrer
  * @param searchQuery - Requête de recherche
  * @returns Collections filtrées
@@ -35,27 +38,30 @@ export function filterCollectionsBySearch(
   if (!searchQuery.trim()) {
     return collections;
   }
-  
+
   const normalizedQuery = searchQuery.toLowerCase().trim();
-  return collections.filter((collection) =>
+  return collections.filter(collection =>
     collection.name.toLowerCase().includes(normalizedQuery)
   );
 }
 
 /**
  * Calcule le nombre total de pages
- * 
+ *
  * @param totalItems - Nombre total d'éléments
  * @param itemsPerPage - Nombre d'éléments par page
  * @returns Nombre total de pages
  */
-export function calculateTotalPages(totalItems: number, itemsPerPage: number): number {
+export function calculateTotalPages(
+  totalItems: number,
+  itemsPerPage: number
+): number {
   return Math.max(1, Math.ceil(totalItems / itemsPerPage));
 }
 
 /**
  * Pagine une liste de collections
- * 
+ *
  * @param collections - Liste des collections
  * @param currentPage - Page courante (1-indexed)
  * @param itemsPerPage - Nombre d'éléments par page
@@ -72,27 +78,27 @@ export function paginateCollections(
 
 /**
  * CollectionsPageContent - Composant client principal pour la page Collections
- * 
+ *
  * Gère:
  * - État de la recherche
  * - État des filtres (genre, tri, prix)
  * - État de la pagination
  * - Filtrage des collections par recherche
  * - Affichage en grille responsive (1/2/3 colonnes)
- * 
+ *
  * Requirements: 4.5, 5.1, 5.2, 5.3, 9.1, 9.3
  */
 export function CollectionsPageContent({
   initialCollections,
 }: CollectionsPageContentProps) {
   // État de la recherche
-  const [searchValue, setSearchValue] = useState("");
-  
+  const [searchValue, setSearchValue] = useState('');
+
   // État des filtres
-  const [selectedGenre, setSelectedGenre] = useState("all");
-  const [selectedSort, setSelectedSort] = useState("newest");
-  const [selectedPrice, setSelectedPrice] = useState("all");
-  
+  const [selectedGenre, setSelectedGenre] = useState('all');
+  const [selectedSort, setSelectedSort] = useState('newest');
+  const [selectedPrice, setSelectedPrice] = useState('all');
+
   // État de la pagination
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -105,12 +111,19 @@ export function CollectionsPageContent({
 
   // Calculer le nombre total de pages
   const totalPages = useMemo(() => {
-    return calculateTotalPages(filteredCollections.length, COLLECTIONS_PER_PAGE);
+    return calculateTotalPages(
+      filteredCollections.length,
+      COLLECTIONS_PER_PAGE
+    );
   }, [filteredCollections.length]);
 
   // Paginer les collections
   const paginatedCollections = useMemo(() => {
-    return paginateCollections(filteredCollections, currentPage, COLLECTIONS_PER_PAGE);
+    return paginateCollections(
+      filteredCollections,
+      currentPage,
+      COLLECTIONS_PER_PAGE
+    );
   }, [filteredCollections, currentPage]);
 
   // Réinitialiser la page lors d'un changement de recherche
@@ -139,7 +152,7 @@ export function CollectionsPageContent({
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     // Scroll vers le haut de la grille
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -160,26 +173,23 @@ export function CollectionsPageContent({
       {paginatedCollections.length > 0 ? (
         <div
           className={cn(
-            "grid gap-6",
+            'grid gap-6',
             // 1 colonne mobile (< 640px) - Requirement 5.3
-            "grid-cols-1",
+            'grid-cols-1',
             // 2 colonnes tablette (640px - 1024px) - Requirement 5.2
-            "sm:grid-cols-2",
+            'sm:grid-cols-2',
             // 3 colonnes desktop (> 1024px) - Requirement 5.1
-            "lg:grid-cols-3"
+            'lg:grid-cols-3'
           )}
           data-testid="collections-grid"
         >
-          {paginatedCollections.map((collection) => (
+          {paginatedCollections.map(collection => (
             <CollectionListCard key={collection.id} collection={collection} />
           ))}
         </div>
       ) : (
         // État vide - aucune collection trouvée
-        <div
-          className="text-center py-16"
-          data-testid="empty-state"
-        >
+        <div className="text-center py-16" data-testid="empty-state">
           <p className="text-light-dimmed text-lg mb-4">
             Aucune collection trouvée
           </p>

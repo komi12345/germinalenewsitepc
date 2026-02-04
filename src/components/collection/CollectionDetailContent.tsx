@@ -1,33 +1,32 @@
-"use client";
+'use client';
 
 /**
  * CollectionDetailContent - Client Component wrapper pour la page détail collection
- * 
+ *
  * Ce composant gère les interactions utilisateur (ajout au panier, partage)
  * qui ne peuvent pas être définies dans un Server Component.
- * 
+ *
  * Requirements: 3.1, 3.2, 3.3, 3.4
  */
 
-import { CollectionHero } from "./CollectionHero";
-import { CollectionBooksSection } from "./CollectionBooksSection";
-import { RelatedCollections } from "./RelatedCollections";
-import { CollectionWithBooks } from "@/src/lib/mockData";
+import { CollectionHero } from './CollectionHero';
+import { CollectionBooksSection } from './CollectionBooksSection';
+import { RelatedCollections } from './RelatedCollections';
+import { CollectionWithBooks } from '@/src/lib/mockData';
 
 interface CollectionDetailContentProps {
   collection: CollectionWithBooks;
   relatedCollections: CollectionWithBooks[];
 }
 
-export function CollectionDetailContent({ 
-  collection, 
-  relatedCollections 
+export function CollectionDetailContent({
+  collection,
+  relatedCollections,
 }: CollectionDetailContentProps) {
-  
   // Handler pour ajouter au panier - Requirement: 3.3
   const handleAddToCart = () => {
     // TODO: Intégrer avec Zustand store panier
-    console.log("Ajouter au panier:", collection.id);
+    console.log('Ajouter au panier:', collection.id);
     // Pour l'instant, afficher une alerte
     alert(`Collection "${collection.name}" ajoutée au panier !`);
   };
@@ -46,15 +45,15 @@ export function CollectionDetailContent({
         await navigator.share(shareData);
       } catch (err) {
         // L'utilisateur a annulé ou erreur
-        console.log("Partage annulé ou erreur:", err);
+        console.log('Partage annulé ou erreur:', err);
       }
     } else {
       // Fallback: copier le lien dans le presse-papier
       try {
         await navigator.clipboard.writeText(window.location.href);
-        alert("Lien copié dans le presse-papier !");
+        alert('Lien copié dans le presse-papier !');
       } catch (err) {
-        console.error("Erreur lors de la copie:", err);
+        console.error('Erreur lors de la copie:', err);
       }
     }
   };

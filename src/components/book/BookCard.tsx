@@ -1,7 +1,7 @@
-import Link from "next/link";
-import Image from "next/image";
-import { cn } from "../../lib/utils";
-import { formatPrice } from "../../lib/utils";
+import Link from 'next/link';
+import Image from 'next/image';
+import { cn } from '../../lib/utils';
+import { formatPrice } from '../../lib/utils';
 
 /**
  * Interface pour les props du BookCard
@@ -19,7 +19,7 @@ export interface BookCardProps {
 
 /**
  * BookCard - Composant carte pour afficher un livre
- * 
+ *
  * Affiche un livre avec:
  * - Fond noir (bg-dark-light) avec bordure hover dorée
  * - Image de couverture aspect-[3/4] avec coins arrondis
@@ -27,7 +27,7 @@ export interface BookCardProps {
  * - Titre du livre en or (text-gold)
  * - Nom de l'auteur en blanc atténué (text-light-dimmed)
  * - Utilise formatPrice() pour le prix
- * 
+ *
  * Requirements: 5.1, 5.2, 5.3, 5.6
  */
 export function BookCard({ book }: BookCardProps) {
@@ -35,14 +35,14 @@ export function BookCard({ book }: BookCardProps) {
     <Link
       href={`/books/${book.slug}`}
       className={cn(
-        "group block",
-        "relative",
-        "bg-dark-light",
-        "rounded-xl",
-        "p-3",
-        "border border-transparent",
-        "transition-all duration-300",
-        "hover:border-gold"
+        'group block',
+        'relative',
+        'bg-dark-light',
+        'rounded-xl',
+        'p-3',
+        'border border-transparent',
+        'transition-all duration-300',
+        'hover:border-gold'
       )}
     >
       {/* Image de couverture avec badge prix */}
@@ -52,21 +52,21 @@ export function BookCard({ book }: BookCardProps) {
           alt={book.title}
           fill
           className={cn(
-            "object-cover",
-            "transition-transform duration-300",
-            "group-hover:scale-105"
+            'object-cover',
+            'transition-transform duration-300',
+            'group-hover:scale-105'
           )}
           sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 20vw"
         />
-        
+
         {/* Badge prix en haut à droite */}
         <div
           className={cn(
-            "absolute top-3 right-3",
-            "bg-gold text-dark",
-            "px-2 py-1",
-            "rounded-lg",
-            "text-sm font-medium"
+            'absolute top-3 right-3',
+            'bg-gold text-dark',
+            'px-2 py-1',
+            'rounded-lg',
+            'text-sm font-medium'
           )}
           data-testid="price-badge"
         >
@@ -77,20 +77,12 @@ export function BookCard({ book }: BookCardProps) {
       {/* Informations du livre */}
       <div className="mt-3">
         {/* Titre du livre */}
-        <h3
-          className={cn(
-            "font-medium",
-            "text-gold",
-            "line-clamp-2"
-          )}
-        >
+        <h3 className={cn('font-medium', 'text-gold', 'line-clamp-2')}>
           {book.title}
         </h3>
 
         {/* Nom de l'auteur */}
-        <p className="text-sm text-light-dimmed mt-1">
-          {book.author}
-        </p>
+        <p className="text-sm text-light-dimmed mt-1">{book.author}</p>
       </div>
     </Link>
   );

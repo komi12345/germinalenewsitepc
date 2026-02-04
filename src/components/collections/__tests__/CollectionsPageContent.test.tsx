@@ -1,9 +1,9 @@
 /**
  * Property-Based Tests for CollectionsPageContent
- * 
+ *
  * **Property 1: Search Filter Consistency**
  * **Validates: Requirements 4.5**
- * 
+ *
  * For any search query entered by the user, all displayed collections SHALL have names
  * that contain the search query (case-insensitive).
  */
@@ -30,7 +30,10 @@ const collectionArbitrary = fc.record({
 /**
  * Générateur de liste de collections
  */
-const collectionsArbitrary = fc.array(collectionArbitrary, { minLength: 0, maxLength: 20 });
+const collectionsArbitrary = fc.array(collectionArbitrary, {
+  minLength: 0,
+  maxLength: 20,
+});
 
 /**
  * Générateur de requêtes de recherche
@@ -40,10 +43,10 @@ const searchQueryArbitrary = fc.string({ minLength: 0, maxLength: 50 });
 describe('CollectionsPageContent - Property-Based Tests', () => {
   /**
    * Feature: collections-page, Property 1: Search Filter Consistency
-   * 
+   *
    * For any search query entered by the user, all displayed collections SHALL have names
    * that contain the search query (case-insensitive).
-   * 
+   *
    * **Validates: Requirements 4.5**
    */
   it('should filter collections so all results contain the search query in name (case-insensitive)', () => {
@@ -52,23 +55,26 @@ describe('CollectionsPageContent - Property-Based Tests', () => {
         collectionsArbitrary,
         searchQueryArbitrary,
         (collections, searchQuery) => {
-          const filteredCollections = filterCollectionsBySearch(collections, searchQuery);
-          
+          const filteredCollections = filterCollectionsBySearch(
+            collections,
+            searchQuery
+          );
+
           // Property: All filtered collections SHALL contain the search query in their name
           const normalizedQuery = searchQuery.toLowerCase().trim();
-          
+
           // If search query is empty or whitespace, all collections should be returned
           if (!normalizedQuery) {
             expect(filteredCollections).toEqual(collections);
             return true;
           }
-          
+
           // For non-empty queries, all results must contain the query
           filteredCollections.forEach(collection => {
             const normalizedName = collection.name.toLowerCase();
             expect(normalizedName).toContain(normalizedQuery);
           });
-          
+
           return true;
         }
       ),
@@ -78,9 +84,9 @@ describe('CollectionsPageContent - Property-Based Tests', () => {
 
   /**
    * Feature: collections-page, Property 1: Search Filter Consistency
-   * 
+   *
    * Verifies that filtering is case-insensitive
-   * 
+   *
    * **Validates: Requirements 4.5**
    */
   it('should filter case-insensitively: same results for different cases of same query', () => {
@@ -89,14 +95,23 @@ describe('CollectionsPageContent - Property-Based Tests', () => {
         collectionsArbitrary,
         fc.string({ minLength: 1, maxLength: 20 }), // Non-empty search query
         (collections, searchQuery) => {
-          const lowerCaseResults = filterCollectionsBySearch(collections, searchQuery.toLowerCase());
-          const upperCaseResults = filterCollectionsBySearch(collections, searchQuery.toUpperCase());
-          const mixedCaseResults = filterCollectionsBySearch(collections, searchQuery);
-          
+          const lowerCaseResults = filterCollectionsBySearch(
+            collections,
+            searchQuery.toLowerCase()
+          );
+          const upperCaseResults = filterCollectionsBySearch(
+            collections,
+            searchQuery.toUpperCase()
+          );
+          const mixedCaseResults = filterCollectionsBySearch(
+            collections,
+            searchQuery
+          );
+
           // Property: Case variations of the same query SHALL return the same results
           expect(lowerCaseResults).toEqual(upperCaseResults);
           expect(lowerCaseResults).toEqual(mixedCaseResults);
-          
+
           return true;
         }
       ),
@@ -106,9 +121,9 @@ describe('CollectionsPageContent - Property-Based Tests', () => {
 
   /**
    * Feature: collections-page, Property 1: Search Filter Consistency
-   * 
+   *
    * Verifies that filtered results are a subset of original collections
-   * 
+   *
    * **Validates: Requirements 4.5**
    */
   it('should return a subset of original collections', () => {
@@ -117,17 +132,24 @@ describe('CollectionsPageContent - Property-Based Tests', () => {
         collectionsArbitrary,
         searchQueryArbitrary,
         (collections, searchQuery) => {
-          const filteredCollections = filterCollectionsBySearch(collections, searchQuery);
-          
+          const filteredCollections = filterCollectionsBySearch(
+            collections,
+            searchQuery
+          );
+
           // Property: Filtered results SHALL be a subset of original collections
-          expect(filteredCollections.length).toBeLessThanOrEqual(collections.length);
-          
+          expect(filteredCollections.length).toBeLessThanOrEqual(
+            collections.length
+          );
+
           // Property: All filtered collections SHALL exist in original list
           filteredCollections.forEach(filtered => {
-            const existsInOriginal = collections.some(c => c.id === filtered.id);
+            const existsInOriginal = collections.some(
+              c => c.id === filtered.id
+            );
             expect(existsInOriginal).toBe(true);
           });
-          
+
           return true;
         }
       ),
@@ -137,9 +159,9 @@ describe('CollectionsPageContent - Property-Based Tests', () => {
 
   /**
    * Feature: collections-page, Property 1: Search Filter Consistency
-   * 
+   *
    * Verifies that no matching collections are excluded
-   * 
+   *
    * **Validates: Requirements 4.5**
    */
   it('should not exclude any collection that matches the search query', () => {
@@ -148,26 +170,31 @@ describe('CollectionsPageContent - Property-Based Tests', () => {
         collectionsArbitrary,
         searchQueryArbitrary,
         (collections, searchQuery) => {
-          const filteredCollections = filterCollectionsBySearch(collections, searchQuery);
+          const filteredCollections = filterCollectionsBySearch(
+            collections,
+            searchQuery
+          );
           const normalizedQuery = searchQuery.toLowerCase().trim();
-          
+
           // If query is empty, all should be included
           if (!normalizedQuery) {
             expect(filteredCollections.length).toBe(collections.length);
             return true;
           }
-          
+
           // Property: No collection that matches SHALL be excluded
           collections.forEach(collection => {
             const normalizedName = collection.name.toLowerCase();
             const shouldBeIncluded = normalizedName.includes(normalizedQuery);
-            const isIncluded = filteredCollections.some(c => c.id === collection.id);
-            
+            const isIncluded = filteredCollections.some(
+              c => c.id === collection.id
+            );
+
             if (shouldBeIncluded) {
               expect(isIncluded).toBe(true);
             }
           });
-          
+
           return true;
         }
       ),

@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
 /**
  * RelatedCollections - Section affichant les collections similaires
- * 
+ *
  * Affiche:
  * - Titre "Vous aimerez aussi"
  * - Grille de 3 RelatedCollectionCard
  * - Responsive: 1 colonne mobile, 3 colonnes desktop
- * 
+ *
  * Requirements: 5.1, 5.2, 6.4
  */
 
-import { RelatedCollectionCard } from "./RelatedCollectionCard";
+import { RelatedCollectionCard } from './RelatedCollectionCard';
 
 export interface RelatedCollectionsProps {
   collections: Array<{
@@ -29,9 +29,12 @@ export function RelatedCollections({ collections }: RelatedCollectionsProps) {
   }
 
   return (
-    <section className="py-12 lg:py-16 bg-dark-light" data-testid="related-collections-section">
+    <section
+      className="py-12 lg:py-16 bg-dark-light"
+      data-testid="related-collections-section"
+    >
       {/* Titre de la section - Requirement: 5.1 */}
-      <h2 
+      <h2
         className="text-2xl lg:text-3xl font-serif text-gold mb-8"
         data-testid="section-title"
       >
@@ -39,15 +42,12 @@ export function RelatedCollections({ collections }: RelatedCollectionsProps) {
       </h2>
 
       {/* Grille de collections - Requirements: 5.2, 6.4 */}
-      <div 
+      <div
         className="grid grid-cols-1 md:grid-cols-3 gap-6"
         data-testid="collections-grid"
       >
-        {collections.slice(0, 3).map((collection) => (
-          <RelatedCollectionCard
-            key={collection.id}
-            collection={collection}
-          />
+        {collections.slice(0, 3).map(collection => (
+          <RelatedCollectionCard key={collection.id} collection={collection} />
         ))}
       </div>
     </section>

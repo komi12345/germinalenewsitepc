@@ -1,23 +1,23 @@
-"use client";
+'use client';
 
 /**
  * BooksPageContent - Contenu principal de la page Librairie
- * 
+ *
  * Client Component qui gère:
  * - État de recherche et filtres
  * - Filtrage des livres par titre/auteur
  * - Pagination (6 livres par page)
  * - Reset de la pagination lors des changements de filtres
- * 
+ *
  * Requirements: 2.7, 2.8, 3.1, 3.2, 3.3, 3.4, 3.5
  */
 
-import { useState, useMemo, useCallback } from "react";
-import { BookExtended } from "../../lib/mockData";
-import { BooksSearchAndFilters } from "./BooksSearchAndFilters";
-import { LibraryBookCard } from "./LibraryBookCard";
-import { Pagination } from "../ui/Pagination";
-import { cn } from "../../lib/utils";
+import { useState, useMemo, useCallback } from 'react';
+import { BookExtended } from '../../lib/mockData';
+import { BooksSearchAndFilters } from './BooksSearchAndFilters';
+import { LibraryBookCard } from './LibraryBookCard';
+import { Pagination } from '../ui/Pagination';
+import { cn } from '../../lib/utils';
 
 /**
  * Nombre de livres par page
@@ -33,7 +33,7 @@ export interface BooksPageContentProps {
 
 /**
  * Filtre les livres par recherche (titre ou auteur, insensible à la casse)
- * 
+ *
  * @param books - Liste des livres à filtrer
  * @param query - Terme de recherche
  * @returns Livres correspondant à la recherche
@@ -45,10 +45,10 @@ export function filterBooksBySearch(
   if (!query.trim()) {
     return books;
   }
-  
+
   const normalizedQuery = query.toLowerCase().trim();
-  
-  return books.filter((book) => {
+
+  return books.filter(book => {
     const titleMatch = book.title.toLowerCase().includes(normalizedQuery);
     const authorMatch = book.author.toLowerCase().includes(normalizedQuery);
     return titleMatch || authorMatch;
@@ -62,25 +62,25 @@ export function filterBooksByGenre(
   books: BookExtended[],
   genre: string
 ): BookExtended[] {
-  if (genre === "all") {
+  if (genre === 'all') {
     return books;
   }
-  
+
   const genreMap: Record<string, string> = {
-    "litterature": "LITTÉRATURE",
-    "poesie": "POÉSIE",
-    "essai-historique": "ESSAI HISTORIQUE",
-    "roman": "ROMAN",
-    "science-fiction": "SCIENCE-FICTION",
-    "biographie": "BIOGRAPHIE",
+    litterature: 'LITTÉRATURE',
+    poesie: 'POÉSIE',
+    'essai-historique': 'ESSAI HISTORIQUE',
+    roman: 'ROMAN',
+    'science-fiction': 'SCIENCE-FICTION',
+    biographie: 'BIOGRAPHIE',
   };
-  
+
   const targetCategory = genreMap[genre];
   if (!targetCategory) {
     return books;
   }
-  
-  return books.filter((book) => book.category === targetCategory);
+
+  return books.filter(book => book.category === targetCategory);
 }
 
 /**
@@ -90,19 +90,19 @@ export function filterBooksByPrice(
   books: BookExtended[],
   priceRange: string
 ): BookExtended[] {
-  if (priceRange === "all") {
+  if (priceRange === 'all') {
     return books;
   }
-  
+
   switch (priceRange) {
-    case "0-3000":
-      return books.filter((book) => book.price < 3000);
-    case "3000-5000":
-      return books.filter((book) => book.price >= 3000 && book.price <= 5000);
-    case "5000-10000":
-      return books.filter((book) => book.price > 5000 && book.price <= 10000);
-    case "10000+":
-      return books.filter((book) => book.price > 10000);
+    case '0-3000':
+      return books.filter(book => book.price < 3000);
+    case '3000-5000':
+      return books.filter(book => book.price >= 3000 && book.price <= 5000);
+    case '5000-10000':
+      return books.filter(book => book.price > 5000 && book.price <= 10000);
+    case '10000+':
+      return books.filter(book => book.price > 10000);
     default:
       return books;
   }
@@ -116,19 +116,19 @@ export function sortBooks(
   sortBy: string
 ): BookExtended[] {
   const sorted = [...books];
-  
+
   switch (sortBy) {
-    case "price-asc":
+    case 'price-asc':
       return sorted.sort((a, b) => a.price - b.price);
-    case "price-desc":
+    case 'price-desc':
       return sorted.sort((a, b) => b.price - a.price);
-    case "title-asc":
-      return sorted.sort((a, b) => a.title.localeCompare(b.title, "fr"));
-    case "title-desc":
-      return sorted.sort((a, b) => b.title.localeCompare(a.title, "fr"));
-    case "oldest":
+    case 'title-asc':
+      return sorted.sort((a, b) => a.title.localeCompare(b.title, 'fr'));
+    case 'title-desc':
+      return sorted.sort((a, b) => b.title.localeCompare(a.title, 'fr'));
+    case 'oldest':
       return sorted.reverse();
-    case "newest":
+    case 'newest':
     default:
       return sorted;
   }
@@ -136,7 +136,7 @@ export function sortBooks(
 
 /**
  * Pagine les livres
- * 
+ *
  * @param books - Liste des livres
  * @param page - Numéro de page (1-indexed)
  * @param perPage - Nombre de livres par page
@@ -156,11 +156,11 @@ export function paginateBooks(
  */
 export function BooksPageContent({ initialBooks }: BooksPageContentProps) {
   // États pour la recherche et les filtres
-  const [searchValue, setSearchValue] = useState("");
-  const [selectedGenre, setSelectedGenre] = useState("all");
-  const [selectedAuthor, setSelectedAuthor] = useState("all");
-  const [selectedPrice, setSelectedPrice] = useState("all");
-  const [selectedSort, setSelectedSort] = useState("newest");
+  const [searchValue, setSearchValue] = useState('');
+  const [selectedGenre, setSelectedGenre] = useState('all');
+  const [selectedAuthor, setSelectedAuthor] = useState('all');
+  const [selectedPrice, setSelectedPrice] = useState('all');
+  const [selectedSort, setSelectedSort] = useState('newest');
   const [currentPage, setCurrentPage] = useState(1);
 
   // Filtrage et tri des livres
@@ -207,7 +207,7 @@ export function BooksPageContent({ initialBooks }: BooksPageContentProps) {
   const handlePageChange = useCallback((page: number) => {
     setCurrentPage(page);
     // Scroll vers le haut de la grille
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   return (
@@ -230,23 +230,23 @@ export function BooksPageContent({ initialBooks }: BooksPageContentProps) {
       {paginatedBooks.length > 0 ? (
         <div
           className={cn(
-            "grid gap-6",
-            "grid-cols-1",
-            "sm:grid-cols-2",
-            "lg:grid-cols-3"
+            'grid gap-6',
+            'grid-cols-1',
+            'sm:grid-cols-2',
+            'lg:grid-cols-3'
           )}
           data-testid="books-grid"
         >
-          {paginatedBooks.map((book) => (
+          {paginatedBooks.map(book => (
             <LibraryBookCard key={book.id} book={book} />
           ))}
         </div>
       ) : (
         <div
           className={cn(
-            "flex flex-col items-center justify-center",
-            "py-16 px-4",
-            "text-center"
+            'flex flex-col items-center justify-center',
+            'py-16 px-4',
+            'text-center'
           )}
           data-testid="books-empty-state"
         >
@@ -255,8 +255,8 @@ export function BooksPageContent({ initialBooks }: BooksPageContentProps) {
             Aucun livre trouvé
           </h3>
           <p className="text-light-dimmed max-w-md">
-            Aucun livre ne correspond à vos critères de recherche. 
-            Essayez de modifier vos filtres ou votre recherche.
+            Aucun livre ne correspond à vos critères de recherche. Essayez de
+            modifier vos filtres ou votre recherche.
           </p>
         </div>
       )}

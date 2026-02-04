@@ -1,6 +1,6 @@
 /**
  * Property-Based Tests for CollectionBooksSection
- * 
+ *
  * **Property 5: Book count accuracy**
  * **Validates: Requirements 4.2**
  */
@@ -13,11 +13,14 @@ import { Book } from '../../../lib/mockData';
 // Generator for book data
 const bookArbitrary = fc.record({
   id: fc.uuid(),
-  title: fc.string({ minLength: 2, maxLength: 100 })
+  title: fc
+    .string({ minLength: 2, maxLength: 100 })
     .filter(s => s.trim().length >= 2),
-  slug: fc.string({ minLength: 1, maxLength: 50 })
+  slug: fc
+    .string({ minLength: 1, maxLength: 50 })
     .filter(s => /^[a-z0-9]+(-[a-z0-9]+)*$/.test(s)),
-  author: fc.string({ minLength: 2, maxLength: 100 })
+  author: fc
+    .string({ minLength: 2, maxLength: 100 })
     .filter(s => s.trim().length >= 2),
   coverImage: fc.constantFrom(
     '/images/placeholder-book.svg',
@@ -28,10 +31,12 @@ const bookArbitrary = fc.record({
 
 // Generator for array of books with specific count
 const booksArrayArbitrary = fc.integer({ min: 1, max: 10 }).chain(count =>
-  fc.array(bookArbitrary, { minLength: count, maxLength: count }).map(books => ({
-    books,
-    bookCount: count
-  }))
+  fc
+    .array(bookArbitrary, { minLength: count, maxLength: count })
+    .map(books => ({
+      books,
+      bookCount: count,
+    }))
 );
 
 describe('CollectionBooksSection - Property-Based Tests', () => {
@@ -41,24 +46,26 @@ describe('CollectionBooksSection - Property-Based Tests', () => {
 
   /**
    * Feature: collection-detail, Property 5: Book count accuracy
-   * 
+   *
    * For any collection with N books, the CollectionBooksSection SHALL display
    * "[N] chefs-d'œuvre inclus dans ce coffret" where N equals the actual number of books.
-   * 
+   *
    * **Validates: Requirements 4.2**
    */
   it('should display accurate book count in subtitle for any number of books', () => {
     fc.assert(
       fc.property(booksArrayArbitrary, ({ books, bookCount }) => {
         cleanup();
-        
+
         render(<CollectionBooksSection books={books} bookCount={bookCount} />);
 
         // Book count subtitle should display the correct count
         const subtitle = screen.getByTestId('book-count-subtitle');
         expect(subtitle).toBeInTheDocument();
         expect(subtitle.textContent).toContain(`${bookCount}`);
-        expect(subtitle.textContent).toContain("chefs-d'œuvre inclus dans ce coffret");
+        expect(subtitle.textContent).toContain(
+          "chefs-d'œuvre inclus dans ce coffret"
+        );
 
         return true;
       }),
@@ -68,14 +75,14 @@ describe('CollectionBooksSection - Property-Based Tests', () => {
 
   /**
    * Test: Grid displays correct number of book cards
-   * 
+   *
    * For any array of books, the grid should render exactly that many CollectionBookCard components.
    */
   it('should render the correct number of book cards in the grid', () => {
     fc.assert(
       fc.property(booksArrayArbitrary, ({ books, bookCount }) => {
         cleanup();
-        
+
         render(<CollectionBooksSection books={books} bookCount={bookCount} />);
 
         // Grid should contain exactly the number of books provided
@@ -142,7 +149,9 @@ describe('CollectionBooksSection - Unit Tests', () => {
 
     const subtitle = screen.getByTestId('book-count-subtitle');
     expect(subtitle).toBeInTheDocument();
-    expect(subtitle).toHaveTextContent("4 chefs-d'œuvre inclus dans ce coffret");
+    expect(subtitle).toHaveTextContent(
+      "4 chefs-d'œuvre inclus dans ce coffret"
+    );
   });
 
   it('should render the "Voir tous les détails" link', () => {
@@ -178,7 +187,9 @@ describe('CollectionBooksSection - Unit Tests', () => {
     render(<CollectionBooksSection books={[]} bookCount={0} />);
 
     const subtitle = screen.getByTestId('book-count-subtitle');
-    expect(subtitle).toHaveTextContent("0 chefs-d'œuvre inclus dans ce coffret");
+    expect(subtitle).toHaveTextContent(
+      "0 chefs-d'œuvre inclus dans ce coffret"
+    );
 
     const grid = screen.getByTestId('books-grid');
     expect(grid).toBeInTheDocument();

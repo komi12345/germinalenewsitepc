@@ -1,6 +1,6 @@
 /**
  * Property-Based Tests for CollectionBookCard
- * 
+ *
  * **Property 6: Book card completeness**
  * **Validates: Requirements 4.5**
  */
@@ -13,11 +13,14 @@ import { formatPrice } from '../../../lib/utils';
 // Generator for book data
 const bookArbitrary = fc.record({
   id: fc.uuid(),
-  title: fc.string({ minLength: 2, maxLength: 100 })
+  title: fc
+    .string({ minLength: 2, maxLength: 100 })
     .filter(s => s.trim().length >= 2),
-  slug: fc.string({ minLength: 1, maxLength: 50 })
+  slug: fc
+    .string({ minLength: 1, maxLength: 50 })
     .filter(s => /^[a-z0-9]+(-[a-z0-9]+)*$/.test(s)),
-  author: fc.string({ minLength: 2, maxLength: 100 })
+  author: fc
+    .string({ minLength: 2, maxLength: 100 })
     .filter(s => s.trim().length >= 2),
   coverImage: fc.constantFrom(
     '/images/placeholder-book.svg',
@@ -33,17 +36,17 @@ describe('CollectionBookCard - Property-Based Tests', () => {
 
   /**
    * Feature: collection-detail, Property 6: Book card completeness
-   * 
+   *
    * For any book in the collection, the CollectionBookCard SHALL display:
    * cover image, title, author name, price formatted in FCFA, and "Acheter seul" link.
-   * 
+   *
    * **Validates: Requirements 4.5**
    */
   it('should display all required book information for any valid book', () => {
     fc.assert(
-      fc.property(bookArbitrary, (book) => {
+      fc.property(bookArbitrary, book => {
         cleanup();
-        
+
         render(<CollectionBookCard book={book} />);
 
         // Cover image should be displayed
@@ -81,19 +84,19 @@ describe('CollectionBookCard - Property-Based Tests', () => {
 
   /**
    * Test: Price formatting correctness
-   * 
+   *
    * For any book price, the displayed price should match the formatPrice utility output.
    */
   it('should format price correctly using formatPrice utility', () => {
     fc.assert(
-      fc.property(bookArbitrary, (book) => {
+      fc.property(bookArbitrary, book => {
         cleanup();
-        
+
         render(<CollectionBookCard book={book} />);
 
         const price = screen.getByTestId('book-price');
         const expectedFormattedPrice = formatPrice(book.price);
-        
+
         expect(price.textContent).toBe(expectedFormattedPrice);
 
         return true;
@@ -124,9 +127,13 @@ describe('CollectionBookCard - Unit Tests', () => {
     expect(screen.getByTestId('collection-book-card')).toBeInTheDocument();
     expect(screen.getByTestId('book-cover-image')).toBeInTheDocument();
     expect(screen.getByTestId('book-title')).toHaveTextContent(mockBook.title);
-    expect(screen.getByTestId('book-author')).toHaveTextContent(mockBook.author);
+    expect(screen.getByTestId('book-author')).toHaveTextContent(
+      mockBook.author
+    );
     expect(screen.getByTestId('book-price')).toHaveTextContent('4 500 FCFA');
-    expect(screen.getByTestId('buy-alone-link')).toHaveTextContent('Acheter seul');
+    expect(screen.getByTestId('buy-alone-link')).toHaveTextContent(
+      'Acheter seul'
+    );
   });
 
   it('should link to the correct book page', () => {

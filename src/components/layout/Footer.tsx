@@ -1,48 +1,48 @@
-import Link from "next/link";
-import { Facebook, Twitter, Instagram } from "lucide-react";
-import { NewsletterForm } from "./NewsletterForm";
+import Link from 'next/link';
+import { Facebook, Twitter, Instagram } from 'lucide-react';
+import { NewsletterForm } from './NewsletterForm';
 
 /**
  * Liens de navigation "Explorer"
  */
 const explorerLinks = [
-  { label: "Nouveautés", href: "/books?sort=newest" },
-  { label: "Meilleures ventes", href: "/books?sort=bestsellers" },
-  { label: "Collections", href: "/collections" },
-  { label: "Auteurs", href: "/authors" },
+  { label: 'Nouveautés', href: '/books?sort=newest' },
+  { label: 'Meilleures ventes', href: '/books?sort=bestsellers' },
+  { label: 'Collections', href: '/collections' },
+  { label: 'Auteurs', href: '/authors' },
 ];
 
 /**
  * Liens de navigation "À propos"
  */
 const aboutLinks = [
-  { label: "Notre histoire", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Presse", href: "/press" },
-  { label: "Contact", href: "/contact" },
+  { label: 'Notre histoire', href: '/about' },
+  { label: 'Services', href: '/services' },
+  { label: 'Presse', href: '/press' },
+  { label: 'Contact', href: '/contact' },
 ];
 
 /**
  * Liens légaux
  */
 const legalLinks = [
-  { label: "Mentions légales", href: "/legal" },
-  { label: "Politique de confidentialité", href: "/privacy" },
-  { label: "CGV", href: "/terms" },
+  { label: 'Mentions légales', href: '/legal' },
+  { label: 'Politique de confidentialité', href: '/privacy' },
+  { label: 'CGV', href: '/terms' },
 ];
 
 /**
  * Réseaux sociaux
  */
 const socialLinks = [
-  { label: "Facebook", href: "https://facebook.com", icon: Facebook },
-  { label: "Twitter", href: "https://twitter.com", icon: Twitter },
-  { label: "Instagram", href: "https://instagram.com", icon: Instagram },
+  { label: 'Facebook', href: 'https://facebook.com', icon: Facebook },
+  { label: 'Twitter', href: 'https://twitter.com', icon: Twitter },
+  { label: 'Instagram', href: 'https://instagram.com', icon: Instagram },
 ];
 
 /**
  * Composant Footer - Pied de page du site
- * 
+ *
  * Structure:
  * - 4 colonnes: Logo/Social, Explorer, À propos, Newsletter
  * - Icônes réseaux sociaux (Facebook, Twitter, Instagram)
@@ -50,7 +50,7 @@ const socialLinks = [
  * - Copyright et liens légaux en bas
  * - Background noir avec bordure supérieure
  * - Responsive: colonnes empilées sur mobile
- * 
+ *
  * Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7
  */
 export function Footer() {
@@ -63,20 +63,20 @@ export function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Colonne 1: Logo + Tagline + Réseaux sociaux - Requirements 3.1, 3.2 */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link 
-              href="/" 
+            <Link
+              href="/"
               className="inline-block text-gold font-serif font-bold text-xl md:text-2xl hover:text-gold-light transition-colors"
             >
               Éditions Germinale
             </Link>
             <p className="mt-4 text-light-dimmed text-sm leading-relaxed">
-              La littérature qui vous ressemble. Découvrez des œuvres uniques 
+              La littérature qui vous ressemble. Découvrez des œuvres uniques
               d&apos;auteurs africains et francophones.
             </p>
-            
+
             {/* Icônes réseaux sociaux - Requirement 3.5 */}
             <div className="flex items-center gap-4 mt-6">
-              {socialLinks.map((social) => (
+              {socialLinks.map(social => (
                 <a
                   key={social.label}
                   href={social.href}
@@ -95,7 +95,7 @@ export function Footer() {
           <div>
             <h3 className="text-gold font-semibold text-lg mb-4">Explorer</h3>
             <ul className="space-y-3">
-              {explorerLinks.map((link) => (
+              {explorerLinks.map(link => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -112,7 +112,7 @@ export function Footer() {
           <div>
             <h3 className="text-gold font-semibold text-lg mb-4">À propos</h3>
             <ul className="space-y-3">
-              {aboutLinks.map((link) => (
+              {aboutLinks.map(link => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -147,7 +147,7 @@ export function Footer() {
 
             {/* Liens légaux */}
             <nav className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
-              {legalLinks.map((link) => (
+              {legalLinks.map(link => (
                 <Link
                   key={link.href}
                   href={link.href}

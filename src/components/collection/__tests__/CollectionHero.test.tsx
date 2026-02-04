@@ -1,6 +1,6 @@
 /**
  * Property-Based Tests for CollectionHero
- * 
+ *
  * **Property 3: Limited edition badge conditional rendering**
  * **Property 4: Price reduction display**
  * **Validates: Requirements 2.3, 2.6**
@@ -13,11 +13,14 @@ import { CollectionHero } from '../CollectionHero';
 // Generator for collection data without discount
 const collectionWithoutDiscountArbitrary = fc.record({
   id: fc.uuid(),
-  name: fc.string({ minLength: 2, maxLength: 100 })
+  name: fc
+    .string({ minLength: 2, maxLength: 100 })
     .filter(s => s.trim().length >= 2),
-  slug: fc.string({ minLength: 1, maxLength: 50 })
+  slug: fc
+    .string({ minLength: 1, maxLength: 50 })
     .filter(s => /^[a-z0-9]+(-[a-z0-9]+)*$/.test(s)),
-  description: fc.string({ minLength: 10, maxLength: 500 })
+  description: fc
+    .string({ minLength: 10, maxLength: 500 })
     .filter(s => s.trim().length >= 10),
   coverImage: fc.constantFrom(
     '/images/placeholder-collection.svg',
@@ -31,11 +34,14 @@ const collectionWithoutDiscountArbitrary = fc.record({
 // Generator for collection data with discount
 const collectionWithDiscountArbitrary = fc.record({
   id: fc.uuid(),
-  name: fc.string({ minLength: 2, maxLength: 100 })
+  name: fc
+    .string({ minLength: 2, maxLength: 100 })
     .filter(s => s.trim().length >= 2),
-  slug: fc.string({ minLength: 1, maxLength: 50 })
+  slug: fc
+    .string({ minLength: 1, maxLength: 50 })
     .filter(s => /^[a-z0-9]+(-[a-z0-9]+)*$/.test(s)),
-  description: fc.string({ minLength: 10, maxLength: 500 })
+  description: fc
+    .string({ minLength: 10, maxLength: 500 })
     .filter(s => s.trim().length >= 10),
   coverImage: fc.constantFrom(
     '/images/placeholder-collection.svg',
@@ -59,18 +65,18 @@ describe('CollectionHero - Property-Based Tests', () => {
 
   /**
    * Feature: collection-detail, Property 3: Limited edition badge conditional rendering
-   * 
-   * For any collection where isLimited is true, the CollectionHero SHALL display 
-   * the "Édition Limitée" badge on the image. For any collection where isLimited 
+   *
+   * For any collection where isLimited is true, the CollectionHero SHALL display
+   * the "Édition Limitée" badge on the image. For any collection where isLimited
    * is false or undefined, the badge SHALL NOT be displayed.
-   * 
+   *
    * **Validates: Requirements 2.3**
    */
   it('should conditionally render limited edition badge based on isLimited property', () => {
     fc.assert(
-      fc.property(collectionWithoutDiscountArbitrary, (collection) => {
+      fc.property(collectionWithoutDiscountArbitrary, collection => {
         cleanup();
-        
+
         render(
           <CollectionHero
             collection={collection}
@@ -98,18 +104,18 @@ describe('CollectionHero - Property-Based Tests', () => {
 
   /**
    * Feature: collection-detail, Property 4: Price reduction display
-   * 
-   * For any collection with originalPrice and discountPercent defined, 
-   * the Price_Badge SHALL display: the originalPrice crossed out, 
+   *
+   * For any collection with originalPrice and discountPercent defined,
+   * the Price_Badge SHALL display: the originalPrice crossed out,
    * the current price, and the discountPercent as "-X%".
-   * 
+   *
    * **Validates: Requirements 2.6**
    */
   it('should display price reduction correctly when discount exists', () => {
     fc.assert(
-      fc.property(collectionWithDiscountArbitrary, (collection) => {
+      fc.property(collectionWithDiscountArbitrary, collection => {
         cleanup();
-        
+
         render(
           <CollectionHero
             collection={collection}
@@ -132,7 +138,9 @@ describe('CollectionHero - Property-Based Tests', () => {
         // Discount badge should show the percentage
         const discountBadge = screen.getByTestId('discount-badge');
         expect(discountBadge).toBeInTheDocument();
-        expect(discountBadge.textContent).toBe(`-${collection.discountPercent}%`);
+        expect(discountBadge.textContent).toBe(
+          `-${collection.discountPercent}%`
+        );
 
         return true;
       }),
@@ -142,15 +150,15 @@ describe('CollectionHero - Property-Based Tests', () => {
 
   /**
    * Additional test: Price display without discount
-   * 
+   *
    * For any collection without originalPrice and discountPercent,
    * only the current price should be displayed.
    */
   it('should display only current price when no discount exists', () => {
     fc.assert(
-      fc.property(collectionWithoutDiscountArbitrary, (collection) => {
+      fc.property(collectionWithoutDiscountArbitrary, collection => {
         cleanup();
-        
+
         render(
           <CollectionHero
             collection={collection}
@@ -167,7 +175,7 @@ describe('CollectionHero - Property-Based Tests', () => {
         // Original price and discount badge should NOT be displayed
         const originalPrice = screen.queryByTestId('original-price');
         const discountBadge = screen.queryByTestId('discount-badge');
-        
+
         expect(originalPrice).not.toBeInTheDocument();
         expect(discountBadge).not.toBeInTheDocument();
 

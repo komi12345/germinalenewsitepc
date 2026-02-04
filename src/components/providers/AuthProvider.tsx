@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { usePathname } from "next/navigation";
-import { useAuthStore, useNotificationStore } from "@/src/store";
+import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import { useAuthStore, useNotificationStore } from '@/src/store';
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -24,7 +24,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const initializeAuth = async () => {
       try {
-        const { createClient } = await import("@/src/lib/supabase/client");
+        const { createClient } = await import('@/src/lib/supabase/client');
         const supabase = createClient();
 
         const {
@@ -32,12 +32,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
         } = await supabase.auth.getUser();
 
         if (user) {
-          setUser({ id: user.id, email: user.email || "" });
+          setUser({ id: user.id, email: user.email || '' });
 
           const { data: profile } = await supabase
-            .from("profiles")
-            .select("*")
-            .eq("id", user.id)
+            .from('profiles')
+            .select('*')
+            .eq('id', user.id)
             .single();
 
           if (profile) {
@@ -45,10 +45,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
           }
 
           const { data: notifications } = await supabase
-            .from("notifications")
-            .select("*")
-            .eq("user_id", user.id)
-            .order("created_at", { ascending: false })
+            .from('notifications')
+            .select('*')
+            .eq('user_id', user.id)
+            .order('created_at', { ascending: false })
             .limit(20);
 
           if (notifications) {
@@ -66,19 +66,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const setupSubscription = async () => {
       try {
-        const { createClient } = await import("@/src/lib/supabase/client");
+        const { createClient } = await import('@/src/lib/supabase/client');
         const supabase = createClient();
 
         const {
           data: { subscription },
         } = supabase.auth.onAuthStateChange(async (event, session) => {
-          if (event === "SIGNED_IN" && session?.user) {
-            setUser({ id: session.user.id, email: session.user.email || "" });
+          if (event === 'SIGNED_IN' && session?.user) {
+            setUser({ id: session.user.id, email: session.user.email || '' });
 
             const { data: profile } = await supabase
-              .from("profiles")
-              .select("*")
-              .eq("id", session.user.id)
+              .from('profiles')
+              .select('*')
+              .eq('id', session.user.id)
               .single();
 
             if (profile) {
@@ -86,16 +86,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
             }
 
             const { data: notifications } = await supabase
-              .from("notifications")
-              .select("*")
-              .eq("user_id", session.user.id)
-              .order("created_at", { ascending: false })
+              .from('notifications')
+              .select('*')
+              .eq('user_id', session.user.id)
+              .order('created_at', { ascending: false })
               .limit(20);
 
             if (notifications) {
               setNotifications(notifications as never);
             }
-          } else if (event === "SIGNED_OUT") {
+          } else if (event === 'SIGNED_OUT') {
             logout();
             setNotifications([]);
           }
@@ -112,7 +112,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const cleanupPromise = setupSubscription();
 
     return () => {
-      cleanupPromise.then((cleanup) => cleanup());
+      cleanupPromise.then(cleanup => cleanup());
     };
   }, [setUser, setProfile, setLoading, logout, setNotifications]);
 
@@ -126,7 +126,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
     const refreshAuth = async () => {
       try {
-        const { createClient } = await import("@/src/lib/supabase/client");
+        const { createClient } = await import('@/src/lib/supabase/client');
         const supabase = createClient();
 
         const {
@@ -134,12 +134,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
         } = await supabase.auth.getUser();
 
         if (user) {
-          setUser({ id: user.id, email: user.email || "" });
+          setUser({ id: user.id, email: user.email || '' });
 
           const { data: profile } = await supabase
-            .from("profiles")
-            .select("*")
-            .eq("id", user.id)
+            .from('profiles')
+            .select('*')
+            .eq('id', user.id)
             .single();
 
           if (profile) {
@@ -147,18 +147,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
           }
 
           const { data: notifications } = await supabase
-            .from("notifications")
-            .select("*")
-            .eq("user_id", user.id)
-            .order("created_at", { ascending: false })
+            .from('notifications')
+            .select('*')
+            .eq('user_id', user.id)
+            .order('created_at', { ascending: false })
             .limit(20);
 
           if (notifications) {
             setNotifications(notifications as never);
           }
         }
-      } catch {
-      }
+      } catch {}
     };
 
     refreshAuth();

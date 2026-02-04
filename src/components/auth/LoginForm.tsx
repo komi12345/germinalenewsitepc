@@ -138,7 +138,6 @@ function ArrowRightIcon() {
   );
 }
 
-
 /**
  * Formulaire de connexion avec validation React Hook Form + Zod
  * Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7, 4.8, 9.5
@@ -170,7 +169,7 @@ export function LoginForm({ onSubmit, onForgotPassword }: LoginFormProps) {
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
+    setShowPassword(prev => !prev);
   };
 
   return (
@@ -204,9 +203,10 @@ export function LoginForm({ onSubmit, onForgotPassword }: LoginFormProps) {
               text-dark placeholder-gray-400
               transition-colors duration-200
               focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent
-              ${errors.email
-                ? 'border-red-500 focus:ring-red-500'
-                : 'border-gray-200 hover:border-gray-300'
+              ${
+                errors.email
+                  ? 'border-red-500 focus:ring-red-500'
+                  : 'border-gray-200 hover:border-gray-300'
               }
             `}
             {...register('email')}
@@ -242,15 +242,18 @@ export function LoginForm({ onSubmit, onForgotPassword }: LoginFormProps) {
             autoComplete="current-password"
             placeholder="••••••••"
             aria-invalid={errors.password ? 'true' : 'false'}
-            aria-describedby={errors.password ? 'login-password-error' : undefined}
+            aria-describedby={
+              errors.password ? 'login-password-error' : undefined
+            }
             className={`
               w-full pl-10 pr-12 py-3 rounded-lg border
               text-dark placeholder-gray-400
               transition-colors duration-200
               focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent
-              ${errors.password
-                ? 'border-red-500 focus:ring-red-500'
-                : 'border-gray-200 hover:border-gray-300'
+              ${
+                errors.password
+                  ? 'border-red-500 focus:ring-red-500'
+                  : 'border-gray-200 hover:border-gray-300'
               }
             `}
             {...register('password')}
@@ -259,7 +262,11 @@ export function LoginForm({ onSubmit, onForgotPassword }: LoginFormProps) {
             type="button"
             onClick={togglePasswordVisibility}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors focus:outline-none focus:text-gold"
-            aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+            aria-label={
+              showPassword
+                ? 'Masquer le mot de passe'
+                : 'Afficher le mot de passe'
+            }
             aria-pressed={showPassword}
           >
             {showPassword ? <EyeOffIcon /> : <EyeIcon />}
@@ -286,7 +293,7 @@ export function LoginForm({ onSubmit, onForgotPassword }: LoginFormProps) {
             className="w-4 h-4 rounded border-gray-300 text-gold focus:ring-gold focus:ring-offset-0"
             {...register('rememberMe')}
           />
-          <label 
+          <label
             htmlFor="login-remember-me"
             className="ml-2 text-sm text-gray-600 cursor-pointer"
           >

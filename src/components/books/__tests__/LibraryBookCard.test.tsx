@@ -1,9 +1,9 @@
 /**
  * Unit Tests for LibraryBookCard
- * 
+ *
  * Tests for the LibraryBookCard component that displays books
  * in the "Notre Librairie" page with light theme design.
- * 
+ *
  * Requirements: 4.1-4.9
  */
 
@@ -51,7 +51,7 @@ describe('LibraryBookCard', () => {
   describe('renders all required elements', () => {
     it('should render the book cover image with correct alt text', () => {
       render(<LibraryBookCard book={mockBook} />);
-      
+
       const image = screen.getByRole('img');
       expect(image).toBeInTheDocument();
       expect(image).toHaveAttribute('alt', mockBook.title);
@@ -59,7 +59,7 @@ describe('LibraryBookCard', () => {
 
     it('should render the category label in uppercase', () => {
       render(<LibraryBookCard book={mockBook} />);
-      
+
       const category = screen.getByTestId('book-category');
       expect(category).toBeInTheDocument();
       expect(category).toHaveTextContent(mockBook.category);
@@ -68,7 +68,7 @@ describe('LibraryBookCard', () => {
 
     it('should render the book title', () => {
       render(<LibraryBookCard book={mockBook} />);
-      
+
       const title = screen.getByTestId('book-title');
       expect(title).toBeInTheDocument();
       expect(title).toHaveTextContent(mockBook.title);
@@ -76,7 +76,7 @@ describe('LibraryBookCard', () => {
 
     it('should render the author in "Par [name]" format', () => {
       render(<LibraryBookCard book={mockBook} />);
-      
+
       const author = screen.getByTestId('book-author');
       expect(author).toBeInTheDocument();
       expect(author).toHaveTextContent(`Par ${mockBook.author}`);
@@ -84,7 +84,7 @@ describe('LibraryBookCard', () => {
 
     it('should render the price in FCFA format', () => {
       render(<LibraryBookCard book={mockBook} />);
-      
+
       const price = screen.getByTestId('book-price');
       expect(price).toBeInTheDocument();
       expect(price).toHaveTextContent('4 500 FCFA');
@@ -92,7 +92,7 @@ describe('LibraryBookCard', () => {
 
     it('should render the "Voir le livre" link with correct href', () => {
       render(<LibraryBookCard book={mockBook} />);
-      
+
       const link = screen.getByTestId('book-link');
       expect(link).toBeInTheDocument();
       expect(link).toHaveTextContent('Voir le livre');
@@ -107,14 +107,14 @@ describe('LibraryBookCard', () => {
   describe('badge display', () => {
     it('should not display any badges when isNew and isFeatured are false', () => {
       render(<LibraryBookCard book={mockBook} />);
-      
+
       expect(screen.queryByTestId('badge-new')).not.toBeInTheDocument();
       expect(screen.queryByTestId('badge-featured')).not.toBeInTheDocument();
     });
 
     it('should display "Nouveauté" badge when isNew is true', () => {
       render(<LibraryBookCard book={mockBookWithNewBadge} />);
-      
+
       const badge = screen.getByTestId('badge-new');
       expect(badge).toBeInTheDocument();
       expect(badge).toHaveTextContent('Nouveauté');
@@ -122,7 +122,7 @@ describe('LibraryBookCard', () => {
 
     it('should display "Coup de cœur" badge when isFeatured is true', () => {
       render(<LibraryBookCard book={mockBookWithFeaturedBadge} />);
-      
+
       const badge = screen.getByTestId('badge-featured');
       expect(badge).toBeInTheDocument();
       expect(badge).toHaveTextContent('Coup de cœur');
@@ -130,7 +130,7 @@ describe('LibraryBookCard', () => {
 
     it('should display both badges when isNew and isFeatured are true', () => {
       render(<LibraryBookCard book={mockBookWithBothBadges} />);
-      
+
       expect(screen.getByTestId('badge-new')).toBeInTheDocument();
       expect(screen.getByTestId('badge-featured')).toBeInTheDocument();
     });
@@ -146,9 +146,9 @@ describe('LibraryBookCard', () => {
         ...mockBook,
         price: 15000,
       };
-      
+
       render(<LibraryBookCard book={bookWithLargePrice} />);
-      
+
       const price = screen.getByTestId('book-price');
       expect(price).toHaveTextContent('15 000 FCFA');
     });
@@ -158,9 +158,9 @@ describe('LibraryBookCard', () => {
         ...mockBook,
         price: 500,
       };
-      
+
       render(<LibraryBookCard book={bookWithSmallPrice} />);
-      
+
       const price = screen.getByTestId('book-price');
       expect(price).toHaveTextContent('500 FCFA');
     });
@@ -173,7 +173,7 @@ describe('LibraryBookCard', () => {
   describe('component styling', () => {
     it('should have white background with rounded corners and shadow', () => {
       render(<LibraryBookCard book={mockBook} />);
-      
+
       const card = screen.getByTestId('library-book-card');
       expect(card).toHaveClass('bg-white');
       expect(card).toHaveClass('rounded-xl');
@@ -182,14 +182,14 @@ describe('LibraryBookCard', () => {
 
     it('should have teal color for category', () => {
       render(<LibraryBookCard book={mockBook} />);
-      
+
       const category = screen.getByTestId('book-category');
       expect(category).toHaveClass('text-teal-600');
     });
 
     it('should have gray color for author text', () => {
       render(<LibraryBookCard book={mockBook} />);
-      
+
       const author = screen.getByTestId('book-author');
       expect(author).toHaveClass('text-gray-500');
     });

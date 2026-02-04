@@ -1,9 +1,9 @@
- "use client";
+'use client';
 
-import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   Search,
   Bell,
@@ -17,24 +17,24 @@ import {
   Library,
   FileText,
   ShoppingBag,
-} from "lucide-react";
-import { cn } from "@/src/lib/utils";
-import { useAuthStore, useNotificationStore } from "@/src/store";
-import { signOut } from "@/src/lib/actions/auth";
+} from 'lucide-react';
+import { cn } from '@/src/lib/utils';
+import { useAuthStore, useNotificationStore } from '@/src/store';
+import { signOut } from '@/src/lib/actions/auth';
 
 const navItems = [
-  { label: "Accueil", href: "/" },
-  { label: "Collections", href: "/collections" },
-  { label: "Librairie", href: "/books" },
-  { label: "Soumettre un manuscrit", href: "/submit-manuscript" },
+  { label: 'Accueil', href: '/' },
+  { label: 'Collections', href: '/collections' },
+  { label: 'Librairie', href: '/books' },
+  { label: 'Soumettre un manuscrit', href: '/submit-manuscript' },
 ];
 
 const profileMenuItems = [
-  { label: "Mon profil", href: "/profile", icon: User },
-  { label: "Ma bibliothèque", href: "/library", icon: Library },
-  { label: "Mes commandes", href: "/orders", icon: ShoppingBag },
-  { label: "Mes manuscrits", href: "/manuscripts", icon: FileText },
-  { label: "Paramètres", href: "/settings", icon: Settings },
+  { label: 'Mon profil', href: '/profile', icon: User },
+  { label: 'Ma bibliothèque', href: '/library', icon: Library },
+  { label: 'Mes commandes', href: '/orders', icon: ShoppingBag },
+  { label: 'Mes manuscrits', href: '/manuscripts', icon: FileText },
+  { label: 'Paramètres', href: '/settings', icon: Settings },
 ];
 
 export function Header() {
@@ -44,7 +44,7 @@ export function Header() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [logoutMessage, setLogoutMessage] = useState<string | null>(null);
 
   const profileRef = useRef<HTMLDivElement>(null);
@@ -70,8 +70,8 @@ export function Header() {
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   useEffect(() => {
@@ -93,23 +93,23 @@ export function Header() {
     }
 
     logout();
-    setLogoutMessage("Vous avez été déconnecté avec succès.");
-    router.push("/");
+    setLogoutMessage('Vous avez été déconnecté avec succès.');
+    router.push('/');
   };
 
   const getInitials = () => {
     if (profile?.full_name) {
       return profile.full_name
-        .split(" ")
-        .map((n) => n[0])
-        .join("")
+        .split(' ')
+        .map(n => n[0])
+        .join('')
         .toUpperCase()
         .slice(0, 2);
     }
     if (user?.email) {
       return user.email[0].toUpperCase();
     }
-    return "U";
+    return 'U';
   };
 
   return (
@@ -141,13 +141,13 @@ export function Header() {
 
           {/* Navigation Desktop */}
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
-            {navItems.map((item) => (
+            {navItems.map(item => (
               <Link
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "text-light hover:text-gold font-medium transition-colors duration-200 py-2",
-                  pathname === item.href && "text-gold"
+                  'text-light hover:text-gold font-medium transition-colors duration-200 py-2',
+                  pathname === item.href && 'text-gold'
                 )}
               >
                 {item.label}
@@ -163,10 +163,10 @@ export function Header() {
               aria-label="Rechercher"
               onClick={() => setIsSearchOpen(!isSearchOpen)}
               className={cn(
-                "p-2.5 rounded-lg transition-colors duration-200",
+                'p-2.5 rounded-lg transition-colors duration-200',
                 isSearchOpen
-                  ? "bg-gold text-dark"
-                  : "text-light hover:text-gold hover:bg-dark-light"
+                  ? 'bg-gold text-dark'
+                  : 'text-light hover:text-gold hover:bg-dark-light'
               )}
             >
               <Search className="w-5 h-5" />
@@ -181,16 +181,16 @@ export function Header() {
                     aria-label="Notifications"
                     onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
                     className={cn(
-                      "p-2.5 rounded-lg transition-colors duration-200 relative",
+                      'p-2.5 rounded-lg transition-colors duration-200 relative',
                       isNotificationsOpen
-                        ? "bg-gold text-dark"
-                        : "text-light hover:text-gold hover:bg-dark-light"
+                        ? 'bg-gold text-dark'
+                        : 'text-light hover:text-gold hover:bg-dark-light'
                     )}
                   >
                     <Bell className="w-5 h-5" />
                     {unreadCount > 0 && (
                       <span className="absolute -top-0.5 -right-0.5 w-5 h-5 bg-red-500 text-white text-xs font-bold rounded-full flex items-center justify-center">
-                        {unreadCount > 9 ? "9+" : unreadCount}
+                        {unreadCount > 9 ? '9+' : unreadCount}
                       </span>
                     )}
                   </button>
@@ -213,22 +213,22 @@ export function Header() {
                       </div>
                       <div className="max-h-96 overflow-y-auto">
                         {notifications.length > 0 ? (
-                          notifications.slice(0, 5).map((notification) => (
+                          notifications.slice(0, 5).map(notification => (
                             <div
                               key={notification.id}
                               onClick={() => markAsRead(notification.id)}
                               className={cn(
-                                "px-4 py-3 border-b border-dark-lighter hover:bg-dark-lighter cursor-pointer transition-colors",
-                                !notification.is_read && "bg-gold/5"
+                                'px-4 py-3 border-b border-dark-lighter hover:bg-dark-lighter cursor-pointer transition-colors',
+                                !notification.is_read && 'bg-gold/5'
                               )}
                             >
                               <div className="flex items-start gap-3">
                                 <div
                                   className={cn(
-                                    "w-2 h-2 mt-2 rounded-full flex-shrink-0",
+                                    'w-2 h-2 mt-2 rounded-full flex-shrink-0',
                                     !notification.is_read
-                                      ? "bg-gold"
-                                      : "bg-dark-lighter"
+                                      ? 'bg-gold'
+                                      : 'bg-dark-lighter'
                                   )}
                                 />
                                 <div className="flex-1 min-w-0">
@@ -266,10 +266,10 @@ export function Header() {
                     type="button"
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
                     className={cn(
-                      "flex items-center gap-2 px-2 py-1.5 rounded-full border transition-colors duration-200",
+                      'flex items-center gap-2 px-2 py-1.5 rounded-full border transition-colors duration-200',
                       isProfileOpen
-                        ? "bg-gold/10 border-gold"
-                        : "border-dark-lighter hover:border-gold/50"
+                        ? 'bg-gold/10 border-gold'
+                        : 'border-dark-lighter hover:border-gold/50'
                     )}
                   >
                     {profile?.avatar_url ? (
@@ -286,12 +286,12 @@ export function Header() {
                       </div>
                     )}
                     <span className="hidden md:inline text-light font-medium text-sm max-w-24 truncate">
-                      {profile?.full_name || "Profil"}
+                      {profile?.full_name || 'Profil'}
                     </span>
                     <ChevronDown
                       className={cn(
-                        "w-4 h-4 text-light-dimmed transition-transform duration-200",
-                        isProfileOpen && "rotate-180"
+                        'w-4 h-4 text-light-dimmed transition-transform duration-200',
+                        isProfileOpen && 'rotate-180'
                       )}
                     />
                   </button>
@@ -301,14 +301,14 @@ export function Header() {
                     <div className="absolute right-0 mt-2 w-56 bg-dark-light border border-dark-lighter rounded-xl shadow-xl overflow-hidden z-50">
                       <div className="px-4 py-3 border-b border-dark-lighter">
                         <p className="font-medium text-light truncate">
-                          {profile?.full_name || "Utilisateur"}
+                          {profile?.full_name || 'Utilisateur'}
                         </p>
                         <p className="text-sm text-light-dimmed truncate">
                           {user?.email}
                         </p>
                       </div>
                       <div className="py-2">
-                        {profileMenuItems.map((item) => (
+                        {profileMenuItems.map(item => (
                           <Link
                             key={item.href}
                             href={item.href}
@@ -357,7 +357,9 @@ export function Header() {
             {/* Menu hamburger mobile */}
             <button
               type="button"
-              aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-label={
+                isMobileMenuOpen ? 'Fermer le menu' : 'Ouvrir le menu'
+              }
               aria-expanded={isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="lg:hidden p-2.5 text-light hover:text-gold hover:bg-dark-light rounded-lg transition-colors duration-200"
@@ -375,8 +377,8 @@ export function Header() {
       {/* Barre de recherche */}
       <div
         className={cn(
-          "overflow-hidden transition-all duration-300 ease-in-out border-t border-dark-lighter",
-          isSearchOpen ? "max-h-20 opacity-100" : "max-h-0 opacity-0 border-t-0"
+          'overflow-hidden transition-all duration-300 ease-in-out border-t border-dark-lighter',
+          isSearchOpen ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0 border-t-0'
         )}
       >
         <div className="max-w-3xl mx-auto px-4 py-4">
@@ -385,7 +387,7 @@ export function Header() {
             <input
               type="text"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={e => setSearchQuery(e.target.value)}
               placeholder="Rechercher un livre, un auteur, une collection..."
               className="w-full pl-12 pr-4 py-3 bg-dark-light border border-dark-lighter rounded-xl text-light placeholder:text-light-dimmed focus:outline-none focus:border-gold transition-colors"
             />
@@ -396,22 +398,22 @@ export function Header() {
       {/* Menu mobile */}
       <div
         className={cn(
-          "lg:hidden overflow-hidden transition-all duration-300 ease-in-out",
-          isMobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+          'lg:hidden overflow-hidden transition-all duration-300 ease-in-out',
+          isMobileMenuOpen ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'
         )}
       >
         <nav className="bg-dark border-t border-dark-lighter px-4 py-4">
           <ul className="space-y-1">
-            {navItems.map((item) => (
+            {navItems.map(item => (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={cn(
-                    "block px-4 py-3 rounded-lg font-medium transition-colors duration-200",
+                    'block px-4 py-3 rounded-lg font-medium transition-colors duration-200',
                     pathname === item.href
-                      ? "bg-gold/10 text-gold"
-                      : "text-light hover:text-gold hover:bg-dark-light"
+                      ? 'bg-gold/10 text-gold'
+                      : 'text-light hover:text-gold hover:bg-dark-light'
                   )}
                 >
                   {item.label}
@@ -424,7 +426,7 @@ export function Header() {
             <>
               <div className="h-px bg-dark-lighter my-4" />
               <ul className="space-y-1">
-                {profileMenuItems.map((item) => (
+                {profileMenuItems.map(item => (
                   <li key={item.href}>
                     <Link
                       href={item.href}

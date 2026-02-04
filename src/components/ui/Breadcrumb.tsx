@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Link from "next/link";
-import { cn } from "../../lib/utils";
+import Link from 'next/link';
+import { cn } from '../../lib/utils';
 
 interface BreadcrumbItem {
   label: string;
@@ -20,11 +20,11 @@ interface BreadcrumbProps {
  */
 export function Breadcrumb({ items, className }: BreadcrumbProps) {
   return (
-    <nav aria-label="Fil d'Ariane" className={cn("text-sm", className)}>
+    <nav aria-label="Fil d'Ariane" className={cn('text-sm', className)}>
       <ol className="flex items-center gap-2">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
-          
+
           return (
             <li key={index} className="flex items-center gap-2">
               {item.href && !isLast ? (
@@ -35,15 +35,19 @@ export function Breadcrumb({ items, className }: BreadcrumbProps) {
                   {item.label}
                 </Link>
               ) : (
-                <span className={cn(
-                  isLast ? "text-light font-medium" : "text-light-dimmed"
-                )}>
+                <span
+                  className={cn(
+                    isLast ? 'text-light font-medium' : 'text-light-dimmed'
+                  )}
+                >
                   {item.label}
                 </span>
               )}
-              
+
               {!isLast && (
-                <span className="text-light-dimmed" aria-hidden="true">/</span>
+                <span className="text-light-dimmed" aria-hidden="true">
+                  /
+                </span>
               )}
             </li>
           );

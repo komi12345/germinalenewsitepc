@@ -40,16 +40,17 @@ export function AuthPage({ defaultTab = 'login' }: AuthPageProps) {
       />
 
       {/* Section formulaire droite - pleine largeur sur mobile */}
-      <main 
+      <main
         id="auth-form"
         className="w-full md:w-1/2 min-h-screen"
         role="main"
-        aria-label={activeTab === 'login' ? 'Formulaire de connexion' : "Formulaire d'inscription"}
+        aria-label={
+          activeTab === 'login'
+            ? 'Formulaire de connexion'
+            : "Formulaire d'inscription"
+        }
       >
-        <FormSection
-          activeTab={activeTab}
-          onTabChange={handleTabChange}
-        />
+        <FormSection activeTab={activeTab} onTabChange={handleTabChange} />
       </main>
     </div>
   );

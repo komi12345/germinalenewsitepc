@@ -6,10 +6,26 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[];
 
-export type UserRole = "user" | "author" | "admin";
-export type ManuscriptStatus = "pending" | "under_review" | "accepted" | "rejected" | "published";
-export type OrderStatus = "pending" | "paid" | "failed" | "refunded" | "cancelled";
-export type NotificationType = "info" | "success" | "warning" | "order" | "manuscript" | "system";
+export type UserRole = 'user' | 'author' | 'admin';
+export type ManuscriptStatus =
+  | 'pending'
+  | 'under_review'
+  | 'accepted'
+  | 'rejected'
+  | 'published';
+export type OrderStatus =
+  | 'pending'
+  | 'paid'
+  | 'failed'
+  | 'refunded'
+  | 'cancelled';
+export type NotificationType =
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'order'
+  | 'manuscript'
+  | 'system';
 
 export interface Database {
   public: {
@@ -619,19 +635,21 @@ export interface Database {
   };
 }
 
-export type Profile = Database["public"]["Tables"]["profiles"]["Row"];
-export type Category = Database["public"]["Tables"]["categories"]["Row"];
-export type Collection = Database["public"]["Tables"]["collections"]["Row"];
-export type Author = Database["public"]["Tables"]["authors"]["Row"];
-export type Book = Database["public"]["Tables"]["books"]["Row"];
-export type Order = Database["public"]["Tables"]["orders"]["Row"];
-export type OrderItem = Database["public"]["Tables"]["order_items"]["Row"];
-export type UserLibraryItem = Database["public"]["Tables"]["user_library"]["Row"];
-export type Manuscript = Database["public"]["Tables"]["manuscripts"]["Row"];
-export type Notification = Database["public"]["Tables"]["notifications"]["Row"];
-export type Review = Database["public"]["Tables"]["reviews"]["Row"];
-export type NewsletterSubscriber = Database["public"]["Tables"]["newsletter_subscribers"]["Row"];
-export type BlogArticle = Database["public"]["Tables"]["blog_articles"]["Row"];
+export type Profile = Database['public']['Tables']['profiles']['Row'];
+export type Category = Database['public']['Tables']['categories']['Row'];
+export type Collection = Database['public']['Tables']['collections']['Row'];
+export type Author = Database['public']['Tables']['authors']['Row'];
+export type Book = Database['public']['Tables']['books']['Row'];
+export type Order = Database['public']['Tables']['orders']['Row'];
+export type OrderItem = Database['public']['Tables']['order_items']['Row'];
+export type UserLibraryItem =
+  Database['public']['Tables']['user_library']['Row'];
+export type Manuscript = Database['public']['Tables']['manuscripts']['Row'];
+export type Notification = Database['public']['Tables']['notifications']['Row'];
+export type Review = Database['public']['Tables']['reviews']['Row'];
+export type NewsletterSubscriber =
+  Database['public']['Tables']['newsletter_subscribers']['Row'];
+export type BlogArticle = Database['public']['Tables']['blog_articles']['Row'];
 
 export type BookWithAuthor = Book & {
   author: Author | null;

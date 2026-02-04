@@ -63,7 +63,6 @@ function EmailIcon() {
   );
 }
 
-
 /**
  * Icône Cadenas SVG
  */
@@ -162,7 +161,6 @@ function ArrowRightIcon() {
   );
 }
 
-
 /**
  * Formulaire d'inscription avec validation React Hook Form + Zod
  * Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 9.5
@@ -196,11 +194,11 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
+    setShowPassword(prev => !prev);
   };
 
   const toggleConfirmPasswordVisibility = () => {
-    setShowConfirmPassword((prev) => !prev);
+    setShowConfirmPassword(prev => !prev);
   };
 
   return (
@@ -228,15 +226,18 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
             autoComplete="name"
             placeholder="Jean Dupont"
             aria-invalid={errors.fullName ? 'true' : 'false'}
-            aria-describedby={errors.fullName ? 'register-fullname-error' : undefined}
+            aria-describedby={
+              errors.fullName ? 'register-fullname-error' : undefined
+            }
             className={`
               w-full pl-10 pr-4 py-3 rounded-lg border
               text-dark placeholder-gray-400
               transition-colors duration-200
               focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent
-              ${errors.fullName
-                ? 'border-red-500 focus:ring-red-500'
-                : 'border-gray-200 hover:border-gray-300'
+              ${
+                errors.fullName
+                  ? 'border-red-500 focus:ring-red-500'
+                  : 'border-gray-200 hover:border-gray-300'
               }
             `}
             {...register('fullName')}
@@ -278,9 +279,10 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
               text-dark placeholder-gray-400
               transition-colors duration-200
               focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent
-              ${errors.email
-                ? 'border-red-500 focus:ring-red-500'
-                : 'border-gray-200 hover:border-gray-300'
+              ${
+                errors.email
+                  ? 'border-red-500 focus:ring-red-500'
+                  : 'border-gray-200 hover:border-gray-300'
               }
             `}
             {...register('email')}
@@ -297,7 +299,6 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
           </p>
         )}
       </div>
-
 
       {/* Champ Mot de passe */}
       <div>
@@ -317,15 +318,20 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
             autoComplete="new-password"
             placeholder="••••••••"
             aria-invalid={errors.password ? 'true' : 'false'}
-            aria-describedby={errors.password ? 'register-password-error' : 'register-password-hint'}
+            aria-describedby={
+              errors.password
+                ? 'register-password-error'
+                : 'register-password-hint'
+            }
             className={`
               w-full pl-10 pr-12 py-3 rounded-lg border
               text-dark placeholder-gray-400
               transition-colors duration-200
               focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent
-              ${errors.password
-                ? 'border-red-500 focus:ring-red-500'
-                : 'border-gray-200 hover:border-gray-300'
+              ${
+                errors.password
+                  ? 'border-red-500 focus:ring-red-500'
+                  : 'border-gray-200 hover:border-gray-300'
               }
             `}
             {...register('password')}
@@ -334,7 +340,11 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
             type="button"
             onClick={togglePasswordVisibility}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors focus:outline-none focus:text-gold"
-            aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
+            aria-label={
+              showPassword
+                ? 'Masquer le mot de passe'
+                : 'Afficher le mot de passe'
+            }
             aria-pressed={showPassword}
           >
             {showPassword ? <EyeOffIcon /> : <EyeIcon />}
@@ -376,15 +386,20 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
             autoComplete="new-password"
             placeholder="••••••••"
             aria-invalid={errors.confirmPassword ? 'true' : 'false'}
-            aria-describedby={errors.confirmPassword ? 'register-confirm-password-error' : undefined}
+            aria-describedby={
+              errors.confirmPassword
+                ? 'register-confirm-password-error'
+                : undefined
+            }
             className={`
               w-full pl-10 pr-12 py-3 rounded-lg border
               text-dark placeholder-gray-400
               transition-colors duration-200
               focus:outline-none focus:ring-2 focus:ring-gold focus:border-transparent
-              ${errors.confirmPassword
-                ? 'border-red-500 focus:ring-red-500'
-                : 'border-gray-200 hover:border-gray-300'
+              ${
+                errors.confirmPassword
+                  ? 'border-red-500 focus:ring-red-500'
+                  : 'border-gray-200 hover:border-gray-300'
               }
             `}
             {...register('confirmPassword')}
@@ -393,7 +408,11 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
             type="button"
             onClick={toggleConfirmPasswordVisibility}
             className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 transition-colors focus:outline-none focus:text-gold"
-            aria-label={showConfirmPassword ? 'Masquer le mot de passe de confirmation' : 'Afficher le mot de passe de confirmation'}
+            aria-label={
+              showConfirmPassword
+                ? 'Masquer le mot de passe de confirmation'
+                : 'Afficher le mot de passe de confirmation'
+            }
             aria-pressed={showConfirmPassword}
           >
             {showConfirmPassword ? <EyeOffIcon /> : <EyeIcon />}
@@ -410,7 +429,6 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
           </p>
         )}
       </div>
-
 
       {/* Bouton de soumission */}
       <button

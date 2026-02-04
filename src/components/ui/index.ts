@@ -1,2 +1,8 @@
-export { Breadcrumb } from "./Breadcrumb";
-export { Pagination, getVisiblePages, getNextPage, getPreviousPage, isValidPage } from "./Pagination";
+export { Breadcrumb } from './Breadcrumb';
+export {
+  Pagination,
+  getVisiblePages,
+  getNextPage,
+  getPreviousPage,
+  isValidPage,
+} from './Pagination';

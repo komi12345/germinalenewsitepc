@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { cn } from "../../lib/utils";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { ManuscriptFormData } from "../../lib/validations/manuscript";
+import { cn } from '../../lib/utils';
+import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { ManuscriptFormData } from '../../lib/validations/manuscript';
 
 /**
  * Props pour le composant PersonalInfoSection
@@ -14,7 +14,7 @@ interface PersonalInfoSectionProps {
 
 /**
  * PersonalInfoSection - Section 1 du formulaire de soumission de manuscrit
- * 
+ *
  * Affiche:
  * - Numéro "1" dans un cercle vert avec le titre "Informations personnelles"
  * - Champ "Nom" avec placeholder "Votre nom"
@@ -24,10 +24,13 @@ interface PersonalInfoSectionProps {
  * - Champ "Adresse email" avec placeholder "votre@email.com"
  * - Messages d'erreur de validation sous chaque champ
  * - Accessibilité avec aria-describedby pour les erreurs
- * 
+ *
  * Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 8.1, 8.3
  */
-export function PersonalInfoSection({ register, errors }: PersonalInfoSectionProps) {
+export function PersonalInfoSection({
+  register,
+  errors,
+}: PersonalInfoSectionProps) {
   return (
     <div className="space-y-4" data-testid="personal-info-section">
       {/* En-tête de section avec numéro */}
@@ -35,11 +38,11 @@ export function PersonalInfoSection({ register, errors }: PersonalInfoSectionPro
         {/* Numéro "1" dans un cercle or */}
         <div
           className={cn(
-            "w-8 h-8",
-            "rounded-full",
-            "bg-gold",
-            "flex items-center justify-center",
-            "text-dark font-semibold text-sm"
+            'w-8 h-8',
+            'rounded-full',
+            'bg-gold',
+            'flex items-center justify-center',
+            'text-dark font-semibold text-sm'
           )}
           data-testid="section-number"
         >
@@ -66,19 +69,19 @@ export function PersonalInfoSection({ register, errors }: PersonalInfoSectionPro
               id="lastName"
               type="text"
               placeholder="Votre nom"
-              {...register("lastName")}
+              {...register('lastName')}
               className={cn(
-                "w-full px-4 py-2.5",
-                "border rounded-lg",
-                "bg-dark text-light placeholder-light-dimmed",
-                "transition-colors duration-200",
-                "focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold",
+                'w-full px-4 py-2.5',
+                'border rounded-lg',
+                'bg-dark text-light placeholder-light-dimmed',
+                'transition-colors duration-200',
+                'focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold',
                 errors.lastName
-                  ? "border-red-400 bg-red-900/20"
-                  : "border-dark-lighter hover:border-gold/50"
+                  ? 'border-red-400 bg-red-900/20'
+                  : 'border-dark-lighter hover:border-gold/50'
               )}
-              aria-invalid={errors.lastName ? "true" : "false"}
-              aria-describedby={errors.lastName ? "lastName-error" : undefined}
+              aria-invalid={errors.lastName ? 'true' : 'false'}
+              aria-describedby={errors.lastName ? 'lastName-error' : undefined}
               data-testid="lastName-input"
             />
             {errors.lastName && (
@@ -105,19 +108,21 @@ export function PersonalInfoSection({ register, errors }: PersonalInfoSectionPro
               id="firstName"
               type="text"
               placeholder="Votre prénom"
-              {...register("firstName")}
+              {...register('firstName')}
               className={cn(
-                "w-full px-4 py-2.5",
-                "border rounded-lg",
-                "bg-dark text-light placeholder-light-dimmed",
-                "transition-colors duration-200",
-                "focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold",
+                'w-full px-4 py-2.5',
+                'border rounded-lg',
+                'bg-dark text-light placeholder-light-dimmed',
+                'transition-colors duration-200',
+                'focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold',
                 errors.firstName
-                  ? "border-red-400 bg-red-900/20"
-                  : "border-dark-lighter hover:border-gold/50"
+                  ? 'border-red-400 bg-red-900/20'
+                  : 'border-dark-lighter hover:border-gold/50'
               )}
-              aria-invalid={errors.firstName ? "true" : "false"}
-              aria-describedby={errors.firstName ? "firstName-error" : undefined}
+              aria-invalid={errors.firstName ? 'true' : 'false'}
+              aria-describedby={
+                errors.firstName ? 'firstName-error' : undefined
+              }
               data-testid="firstName-input"
             />
             {errors.firstName && (
@@ -145,19 +150,19 @@ export function PersonalInfoSection({ register, errors }: PersonalInfoSectionPro
             id="phone"
             type="tel"
             placeholder="+228 90 00 00 00"
-            {...register("phone")}
+            {...register('phone')}
             className={cn(
-              "w-full px-4 py-2.5",
-              "border rounded-lg",
-              "bg-dark text-light placeholder-light-dimmed",
-              "transition-colors duration-200",
-              "focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold",
+              'w-full px-4 py-2.5',
+              'border rounded-lg',
+              'bg-dark text-light placeholder-light-dimmed',
+              'transition-colors duration-200',
+              'focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold',
               errors.phone
-                ? "border-red-400 bg-red-900/20"
-                : "border-dark-lighter hover:border-gold/50"
+                ? 'border-red-400 bg-red-900/20'
+                : 'border-dark-lighter hover:border-gold/50'
             )}
-            aria-invalid={errors.phone ? "true" : "false"}
-            aria-describedby={errors.phone ? "phone-error" : undefined}
+            aria-invalid={errors.phone ? 'true' : 'false'}
+            aria-describedby={errors.phone ? 'phone-error' : undefined}
             data-testid="phone-input"
           />
           {errors.phone && (
@@ -184,19 +189,19 @@ export function PersonalInfoSection({ register, errors }: PersonalInfoSectionPro
             id="residence"
             type="text"
             placeholder="Ville, Pays"
-            {...register("residence")}
+            {...register('residence')}
             className={cn(
-              "w-full px-4 py-2.5",
-              "border rounded-lg",
-              "bg-dark text-light placeholder-light-dimmed",
-              "transition-colors duration-200",
-              "focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold",
+              'w-full px-4 py-2.5',
+              'border rounded-lg',
+              'bg-dark text-light placeholder-light-dimmed',
+              'transition-colors duration-200',
+              'focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold',
               errors.residence
-                ? "border-red-400 bg-red-900/20"
-                : "border-dark-lighter hover:border-gold/50"
+                ? 'border-red-400 bg-red-900/20'
+                : 'border-dark-lighter hover:border-gold/50'
             )}
-            aria-invalid={errors.residence ? "true" : "false"}
-            aria-describedby={errors.residence ? "residence-error" : undefined}
+            aria-invalid={errors.residence ? 'true' : 'false'}
+            aria-describedby={errors.residence ? 'residence-error' : undefined}
             data-testid="residence-input"
           />
           {errors.residence && (
@@ -223,19 +228,19 @@ export function PersonalInfoSection({ register, errors }: PersonalInfoSectionPro
             id="email"
             type="email"
             placeholder="votre@email.com"
-            {...register("email")}
+            {...register('email')}
             className={cn(
-              "w-full px-4 py-2.5",
-              "border rounded-lg",
-              "bg-dark text-light placeholder-light-dimmed",
-              "transition-colors duration-200",
-              "focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold",
+              'w-full px-4 py-2.5',
+              'border rounded-lg',
+              'bg-dark text-light placeholder-light-dimmed',
+              'transition-colors duration-200',
+              'focus:outline-none focus:ring-2 focus:ring-gold/50 focus:border-gold',
               errors.email
-                ? "border-red-400 bg-red-900/20"
-                : "border-dark-lighter hover:border-gold/50"
+                ? 'border-red-400 bg-red-900/20'
+                : 'border-dark-lighter hover:border-gold/50'
             )}
-            aria-invalid={errors.email ? "true" : "false"}
-            aria-describedby={errors.email ? "email-error" : undefined}
+            aria-invalid={errors.email ? 'true' : 'false'}
+            aria-describedby={errors.email ? 'email-error' : undefined}
             data-testid="email-input"
           />
           {errors.email && (

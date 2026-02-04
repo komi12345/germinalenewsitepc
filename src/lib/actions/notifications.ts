@@ -1,19 +1,21 @@
-"use server";
+'use server';
 
-import { createClient } from "@/src/lib/supabase/server";
-import { revalidatePath } from "next/cache";
+import { createClient } from '@/src/lib/supabase/server';
+import { revalidatePath } from 'next/cache';
 
 export async function getNotifications() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) return [];
 
   const { data: notifications } = await supabase
-    .from("notifications")
-    .select("*")
-    .eq("user_id", user.id)
-    .order("created_at", { ascending: false })
+    .from('notifications')
+    .select('*')
+    .eq('user_id', user.id)
+    .order('created_at', { ascending: false })
     .limit(20);
 
   return notifications || [];
@@ -21,81 +23,89 @@ export async function getNotifications() {
 
 export async function getUnreadCount() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) return 0;
 
   const { count } = await supabase
-    .from("notifications")
-    .select("*", { count: "exact", head: true })
-    .eq("user_id", user.id)
-    .eq("is_read", false);
+    .from('notifications')
+    .select('*', { count: 'exact', head: true })
+    .eq('user_id', user.id)
+    .eq('is_read', false);
 
   return count || 0;
 }
 
 export async function markNotificationAsRead(id: string) {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
-    return { error: "Non authentifié" };
+    return { error: 'Non authentifié' };
   }
 
   const { error } = await supabase
-    .from("notifications")
+    .from('notifications')
     .update({ is_read: true })
-    .eq("id", id)
-    .eq("user_id", user.id);
+    .eq('id', id)
+    .eq('user_id', user.id);
 
   if (error) {
     return { error: error.message };
   }
 
-  revalidatePath("/");
+  revalidatePath('/');
   return { success: true };
 }
 
 export async function markAllNotificationsAsRead() {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
-    return { error: "Non authentifié" };
+    return { error: 'Non authentifié' };
   }
 
   const { error } = await supabase
-    .from("notifications")
+    .from('notifications')
     .update({ is_read: true })
-    .eq("user_id", user.id)
-    .eq("is_read", false);
+    .eq('user_id', user.id)
+    .eq('is_read', false);
 
   if (error) {
     return { error: error.message };
   }
 
-  revalidatePath("/");
+  revalidatePath('/');
   return { success: true };
 }
 
 export async function deleteNotification(id: string) {
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (!user) {
-    return { error: "Non authentifié" };
+    return { error: 'Non authentifié' };
   }
 
   const { error } = await supabase
-    .from("notifications")
+    .from('notifications')
     .delete()
-    .eq("id", id)
-    .eq("user_id", user.id);
+    .eq('id', id)
+    .eq('user_id', user.id);
 
   if (error) {
     return { error: error.message };
   }
 
-  revalidatePath("/");
+  revalidatePath('/');
   return { success: true };
 }

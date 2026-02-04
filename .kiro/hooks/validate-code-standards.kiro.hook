@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "name": "Validation Standards Techniques",
+  "description": "Valide automatiquement TypeScript, ESLint et Prettier avant chaque commit pour garantir la conformité aux standards 2026",
+  "version": "1",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "npm run type-check && npm run lint && npm run format:check"
+  },
+  "workspaceFolderName": "germinalenewsitepc",
+  "shortName": "validate-code-standards"
+}

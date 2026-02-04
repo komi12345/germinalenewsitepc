@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "name": "Validation Qualité Code",
+  "description": "Exécute automatiquement les vérifications TypeScript, ESLint et build Next.js après chaque arrêt de l'agent pour garantir un code sans erreur conforme aux standards 2026",
+  "version": "1",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "npx tsc --noEmit && npm run lint && npm run build"
+  },
+  "workspaceFolderName": "germinalenewsitepc",
+  "shortName": "validate-code-quality"
+}

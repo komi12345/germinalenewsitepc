@@ -1,0 +1,44 @@
+#!/bin/sh
+# Exemple de hook pre-commit pour validation automatique
+# Pour l'activer :
+# 1. Installer husky : npm install --save-dev husky
+# 2. Initialiser : npx husky init
+# 3. Copier ce fichier vers .husky/pre-commit
+# 4. Rendre exécutable : chmod +x .husky/pre-commit
+
+echo "🔍 Validation pré-commit en cours..."
+echo ""
+
+# 1️⃣ TypeScript Check
+echo "1️⃣ Vérification TypeScript..."
+npx tsc --noEmit
+if [ $? -ne 0 ]; then
+  echo "❌ Erreurs TypeScript détectées. Commit annulé."
+  exit 1
+fi
+echo "✅ TypeScript OK"
+echo ""
+
+# 2️⃣ ESLint Check
+echo "2️⃣ Vérification ESLint..."
+npm run lint
+if [ $? -ne 0 ]; then
+  echo "❌ Erreurs ESLint détectées. Commit annulé."
+  exit 1
+fi
+echo "✅ ESLint OK"
+echo ""
+
+# 3️⃣ Prettier Check
+echo "3️⃣ Vérification Prettier..."
+npm run format:check
+if [ $? -ne 0 ]; then
+  echo "❌ Fichiers non formatés détectés."
+  echo "💡 Exécutez 'npm run format' pour corriger automatiquement."
+  exit 1
+fi
+echo "✅ Prettier OK"
+echo ""
+
+echo "✅ ✅ ✅ Toutes les validations sont passées ! ✅ ✅ ✅"
+echo "🚀 Commit autorisé."

@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { cn } from "../../lib/utils";
-import { Star, Pencil } from "lucide-react";
-import Image from "next/image";
+import { cn } from '../../lib/utils';
+import { Star, Pencil } from 'lucide-react';
+import Image from 'next/image';
 
 /**
  * Données des témoignages clients
@@ -12,27 +12,27 @@ const testimonials = [
     id: 1,
     rating: 5,
     text: "Un chef-d'œuvre absolu. J'ai dévoré ce livre en une soirée. La qualité du papier et la mise en page rendent la lecture incroyablement agréable.",
-    author: "Sophie M.",
+    author: 'Sophie M.',
     subtitle: "sur L'Aube des Temps",
-    avatar: "/images/placeholder-book.svg",
+    avatar: '/images/placeholder-book.svg',
     verified: true,
   },
   {
     id: 2,
     rating: 5,
     text: "Une maison d'édition qui prend soin de ses auteurs et de ses lecteurs. Le service client est d'une rare gentillesse. Merci pour tout.",
-    author: "Marc D.",
-    subtitle: "Lecteur fidèle depuis 2021",
-    avatar: "/images/placeholder-book.svg",
+    author: 'Marc D.',
+    subtitle: 'Lecteur fidèle depuis 2021',
+    avatar: '/images/placeholder-book.svg',
     verified: true,
   },
   {
     id: 3,
     rating: 4.5,
     text: "La collection Poésie est une pure merveille. J'ai commandé trois ouvrages pour offrir, ils sont arrivés dans un emballage sublime.",
-    author: "Clara T.",
-    subtitle: "sur Anthologie 2023",
-    avatar: "/images/placeholder-book.svg",
+    author: 'Clara T.',
+    subtitle: 'sur Anthologie 2023',
+    avatar: '/images/placeholder-book.svg',
     verified: true,
   },
 ];
@@ -48,12 +48,7 @@ function StarRating({ rating }: { rating: number }) {
     <div className="flex gap-1 mb-4">
       {[...Array(5)].map((_, index) => {
         if (index < fullStars) {
-          return (
-            <Star
-              key={index}
-              className="w-5 h-5 fill-gold text-gold"
-            />
-          );
+          return <Star key={index} className="w-5 h-5 fill-gold text-gold" />;
         } else if (index === fullStars && hasHalfStar) {
           return (
             <div key={index} className="relative w-5 h-5">
@@ -64,9 +59,7 @@ function StarRating({ rating }: { rating: number }) {
             </div>
           );
         } else {
-          return (
-            <Star key={index} className="w-5 h-5 text-dark-lighter" />
-          );
+          return <Star key={index} className="w-5 h-5 text-dark-lighter" />;
         }
       })}
     </div>
@@ -84,11 +77,11 @@ function TestimonialCard({
   return (
     <div
       className={cn(
-        "bg-dark-lighter rounded-2xl p-6",
-        "border border-dark-lighter",
-        "hover:border-gold/30",
-        "transition-all duration-200",
-        "flex flex-col h-full"
+        'bg-dark-lighter rounded-2xl p-6',
+        'border border-dark-lighter',
+        'hover:border-gold/30',
+        'transition-all duration-200',
+        'flex flex-col h-full'
       )}
     >
       {/* Étoiles */}
@@ -112,9 +105,7 @@ function TestimonialCard({
         </div>
         <div>
           <div className="flex items-center gap-1">
-            <span className="font-medium text-light">
-              {testimonial.author}
-            </span>
+            <span className="font-medium text-light">{testimonial.author}</span>
             {testimonial.verified && (
               <span className="w-4 h-4 rounded-full bg-gold flex items-center justify-center">
                 <svg
@@ -144,7 +135,7 @@ function TestimonialCard({
 function AvatarGroup() {
   return (
     <div className="flex -space-x-2">
-      {[1, 2, 3].map((i) => (
+      {[1, 2, 3].map(i => (
         <div
           key={i}
           className="w-8 h-8 rounded-full border-2 border-dark-light bg-dark overflow-hidden"
@@ -164,7 +155,7 @@ function AvatarGroup() {
 
 /**
  * TestimonialsSection - Section témoignages clients de la homepage
- * 
+ *
  * Affiche:
  * - Label "TÉMOIGNAGES" en couleur secondary (orange)
  * - Titre "Ce que nos lecteurs disent de nous"
@@ -177,7 +168,7 @@ function AvatarGroup() {
 export function TestimonialsSection() {
   return (
     <section
-      className={cn("py-16 md:py-20 px-4", "bg-dark-light")}
+      className={cn('py-16 md:py-20 px-4', 'bg-dark-light')}
       data-testid="testimonials-section"
     >
       <div className="max-w-6xl mx-auto">
@@ -186,11 +177,11 @@ export function TestimonialsSection() {
           {/* Label */}
           <span
             className={cn(
-              "inline-block",
-              "text-sm font-semibold",
-              "text-gold",
-              "uppercase tracking-wider",
-              "mb-4"
+              'inline-block',
+              'text-sm font-semibold',
+              'text-gold',
+              'uppercase tracking-wider',
+              'mb-4'
             )}
           >
             TÉMOIGNAGES
@@ -199,10 +190,10 @@ export function TestimonialsSection() {
           {/* Titre */}
           <h2
             className={cn(
-              "text-2xl md:text-3xl lg:text-4xl",
-              "font-serif font-bold",
-              "text-gold",
-              "mb-4"
+              'text-2xl md:text-3xl lg:text-4xl',
+              'font-serif font-bold',
+              'text-gold',
+              'mb-4'
             )}
           >
             Ce que nos lecteurs disent de nous
@@ -217,7 +208,7 @@ export function TestimonialsSection() {
 
         {/* Grille de témoignages */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-          {testimonials.map((testimonial) => (
+          {testimonials.map(testimonial => (
             <TestimonialCard key={testimonial.id} testimonial={testimonial} />
           ))}
         </div>
@@ -227,10 +218,10 @@ export function TestimonialsSection() {
           {/* Titre CTA */}
           <h3
             className={cn(
-              "text-xl md:text-2xl",
-              "font-serif font-bold",
-              "text-gold",
-              "mb-3"
+              'text-xl md:text-2xl',
+              'font-serif font-bold',
+              'text-gold',
+              'mb-3'
             )}
           >
             Vous avez aimé nos ouvrages ?
@@ -245,12 +236,12 @@ export function TestimonialsSection() {
           {/* Bouton "Laisser un avis" */}
           <button
             className={cn(
-              "inline-flex items-center gap-2",
-              "bg-gold hover:bg-gold-light",
-              "text-dark font-medium",
-              "px-6 py-3 rounded-xl",
-              "transition-colors duration-200",
-              "shadow-md hover:shadow-lg"
+              'inline-flex items-center gap-2',
+              'bg-gold hover:bg-gold-light',
+              'text-dark font-medium',
+              'px-6 py-3 rounded-xl',
+              'transition-colors duration-200',
+              'shadow-md hover:shadow-lg'
             )}
           >
             <Pencil className="w-4 h-4" />

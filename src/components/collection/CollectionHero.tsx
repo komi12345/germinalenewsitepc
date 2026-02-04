@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
 /**
  * CollectionHero - Section héro pour la page détail d'une collection
- * 
+ *
  * Affiche l'image de la collection, les badges, le titre, la description,
  * les prix avec réduction éventuelle, et les boutons d'action.
- * 
+ *
  * Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 3.1, 3.2
  */
 
-import Image from "next/image";
-import { ShoppingCart, Share2, Truck } from "lucide-react";
-import { formatPrice } from "../../lib/utils";
+import Image from 'next/image';
+import { ShoppingCart, Share2, Truck } from 'lucide-react';
+import { formatPrice } from '../../lib/utils';
 
 export interface CollectionHeroProps {
   collection: {
@@ -30,7 +30,11 @@ export interface CollectionHeroProps {
   onShare: () => void;
 }
 
-export function CollectionHero({ collection, onAddToCart, onShare }: CollectionHeroProps) {
+export function CollectionHero({
+  collection,
+  onAddToCart,
+  onShare,
+}: CollectionHeroProps) {
   const hasDiscount = collection.originalPrice && collection.discountPercent;
 
   return (
@@ -46,13 +50,13 @@ export function CollectionHero({ collection, onAddToCart, onShare }: CollectionH
               className="object-cover"
               priority
             />
-            
+
             {/* Overlay noir pour cohérence */}
             <div className="absolute inset-0 bg-black/20" />
-            
+
             {/* Badge Édition Limitée sur l'image - Requirement: 2.3 */}
             {collection.isLimited && (
-              <div 
+              <div
                 className="absolute bottom-4 left-4 bg-gold text-dark px-3 py-1.5 rounded-lg text-sm font-medium"
                 data-testid="limited-edition-badge"
               >
@@ -82,20 +86,26 @@ export function CollectionHero({ collection, onAddToCart, onShare }: CollectionH
           </p>
 
           {/* Prix avec réduction - Requirement: 2.6 */}
-          <div className="flex items-center gap-3 mb-6" data-testid="price-section">
-            <span className="text-2xl lg:text-3xl font-bold text-gold" data-testid="current-price">
+          <div
+            className="flex items-center gap-3 mb-6"
+            data-testid="price-section"
+          >
+            <span
+              className="text-2xl lg:text-3xl font-bold text-gold"
+              data-testid="current-price"
+            >
               {formatPrice(collection.price)}
             </span>
-            
+
             {hasDiscount && (
               <>
-                <span 
+                <span
                   className="text-lg text-light-dimmed line-through"
                   data-testid="original-price"
                 >
                   {formatPrice(collection.originalPrice!)}
                 </span>
-                <span 
+                <span
                   className="bg-red-900/50 text-red-400 px-2 py-0.5 rounded text-sm font-semibold"
                   data-testid="discount-badge"
                 >
@@ -115,7 +125,7 @@ export function CollectionHero({ collection, onAddToCart, onShare }: CollectionH
               <ShoppingCart className="w-5 h-5" />
               Acheter toute la collection
             </button>
-            
+
             <button
               onClick={onShare}
               className="flex items-center justify-center gap-2 border border-dark-lighter text-light px-6 py-3 rounded-lg font-medium hover:bg-dark-light hover:text-gold transition-colors"

@@ -1,6 +1,6 @@
 /**
  * Property-Based Tests for RelatedCollections
- * 
+ *
  * **Property 7: Related collection card completeness**
  * **Validates: Requirements 5.3**
  */
@@ -13,9 +13,11 @@ import { RelatedCollectionCard } from '../RelatedCollectionCard';
 // Generator for related collection data
 const relatedCollectionArbitrary = fc.record({
   id: fc.uuid(),
-  name: fc.string({ minLength: 2, maxLength: 100 })
+  name: fc
+    .string({ minLength: 2, maxLength: 100 })
     .filter(s => s.trim().length >= 2),
-  slug: fc.string({ minLength: 1, maxLength: 50 })
+  slug: fc
+    .string({ minLength: 1, maxLength: 50 })
     .filter(s => /^[a-z0-9]+(-[a-z0-9]+)*$/.test(s)),
   coverImage: fc.constantFrom(
     '/images/placeholder-collection.svg',
@@ -24,7 +26,10 @@ const relatedCollectionArbitrary = fc.record({
 });
 
 // Generator for array of 3 related collections
-const threeCollectionsArbitrary = fc.array(relatedCollectionArbitrary, { minLength: 3, maxLength: 3 });
+const threeCollectionsArbitrary = fc.array(relatedCollectionArbitrary, {
+  minLength: 3,
+  maxLength: 3,
+});
 
 describe('RelatedCollections - Property-Based Tests', () => {
   afterEach(() => {
@@ -33,18 +38,18 @@ describe('RelatedCollections - Property-Based Tests', () => {
 
   /**
    * Feature: collection-detail, Property 7: Related collection card completeness
-   * 
+   *
    * For any related collection, the RelatedCollectionCard SHALL display:
-   * cover image with gradient overlay, "COLLECTION" label, collection name, 
+   * cover image with gradient overlay, "COLLECTION" label, collection name,
    * and "Découvrir →" link.
-   * 
+   *
    * **Validates: Requirements 5.3**
    */
   it('should display all required elements for each related collection card', () => {
     fc.assert(
-      fc.property(relatedCollectionArbitrary, (collection) => {
+      fc.property(relatedCollectionArbitrary, collection => {
         cleanup();
-        
+
         render(<RelatedCollectionCard collection={collection} />);
 
         // Card should be rendered
@@ -58,7 +63,9 @@ describe('RelatedCollections - Property-Based Tests', () => {
         // "COLLECTION" label should be displayed
         const collectionLabel = screen.getByTestId('collection-label');
         expect(collectionLabel).toBeInTheDocument();
-        expect(collectionLabel.textContent?.toLowerCase()).toContain('collection');
+        expect(collectionLabel.textContent?.toLowerCase()).toContain(
+          'collection'
+        );
 
         // Collection name should be displayed
         const collectionName = screen.getByTestId('collection-name');
@@ -79,17 +86,17 @@ describe('RelatedCollections - Property-Based Tests', () => {
 
   /**
    * Test: RelatedCollections section displays exactly 3 collections
-   * 
+   *
    * For any array of collections, the RelatedCollections section SHALL
    * display at most 3 collection cards.
-   * 
+   *
    * **Validates: Requirements 5.2**
    */
   it('should display exactly 3 collection cards when given 3 or more collections', () => {
     fc.assert(
-      fc.property(threeCollectionsArbitrary, (collections) => {
+      fc.property(threeCollectionsArbitrary, collections => {
         cleanup();
-        
+
         render(<RelatedCollections collections={collections} />);
 
         // Section should be rendered
@@ -113,7 +120,7 @@ describe('RelatedCollections - Property-Based Tests', () => {
 
   /**
    * Test: RelatedCollections section handles empty array
-   * 
+   *
    * When given an empty array, the section should not render.
    */
   it('should not render when given an empty array', () => {

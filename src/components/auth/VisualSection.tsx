@@ -47,23 +47,25 @@ export function VisualSection({
         </blockquote>
 
         {/* Sous-titre descriptif */}
-        <p className="text-light-muted text-sm lg:text-base mb-8">
-          {subtitle}
-        </p>
+        <p className="text-light-muted text-sm lg:text-base mb-8">{subtitle}</p>
 
         {/* Points de pagination (3 dots) */}
-        <div className="flex items-center gap-2" role="group" aria-label="Indicateurs de page">
-          <span 
-            className="w-2 h-2 rounded-full bg-gold" 
+        <div
+          className="flex items-center gap-2"
+          role="group"
+          aria-label="Indicateurs de page"
+        >
+          <span
+            className="w-2 h-2 rounded-full bg-gold"
             aria-current="true"
             aria-label="Page 1 (active)"
           />
-          <span 
-            className="w-2 h-2 rounded-full bg-white/40" 
+          <span
+            className="w-2 h-2 rounded-full bg-white/40"
             aria-label="Page 2"
           />
-          <span 
-            className="w-2 h-2 rounded-full bg-white/40" 
+          <span
+            className="w-2 h-2 rounded-full bg-white/40"
             aria-label="Page 3"
           />
         </div>

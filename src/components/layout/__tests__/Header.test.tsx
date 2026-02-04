@@ -1,16 +1,22 @@
-import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
-import React from "react";
-import { Header } from "../Header";
-import { useAuthStore } from "@/src/store";
-import { signOut } from "@/src/lib/actions/auth";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from '@testing-library/react';
+import React from 'react';
+import { Header } from '../Header';
+import { useAuthStore } from '@/src/store';
+import { signOut } from '@/src/lib/actions/auth';
 
 // Mock hooks
-jest.mock("next/navigation", () => ({
+jest.mock('next/navigation', () => ({
   useRouter: () => ({ push: jest.fn() }),
-  usePathname: () => "/",
+  usePathname: () => '/',
 }));
 
-jest.mock("@/src/store", () => ({
+jest.mock('@/src/store', () => ({
   useAuthStore: jest.fn(),
   useNotificationStore: jest.fn(() => ({
     notifications: [],
@@ -20,12 +26,12 @@ jest.mock("@/src/store", () => ({
   })),
 }));
 
-jest.mock("@/src/lib/actions/auth", () => ({
+jest.mock('@/src/lib/actions/auth', () => ({
   signOut: jest.fn(),
 }));
 
 // Mock Lucide icons
-jest.mock("lucide-react", () => ({
+jest.mock('lucide-react', () => ({
   Search: () => <div data-testid="search-icon" />,
   Bell: () => <div data-testid="bell-icon" />,
   Menu: () => <div data-testid="menu-icon" />,
@@ -41,15 +47,15 @@ jest.mock("lucide-react", () => ({
 }));
 
 // Mock Next.js Image
-jest.mock("next/image", () => ({
-    __esModule: true,
-    default: (props: React.ComponentProps<"img">) => {
-        // eslint-disable-next-line @next/next/no-img-element
-        return <img {...props} alt={props.alt || ""} />;
-    },
+jest.mock('next/image', () => ({
+  __esModule: true,
+  default: (props: React.ComponentProps<'img'>) => {
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img {...props} alt={props.alt || ''} />;
+  },
 }));
 
-describe("Header Logout Notification", () => {
+describe('Header Logout Notification', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.useFakeTimers();
@@ -59,11 +65,11 @@ describe("Header Logout Notification", () => {
     jest.useRealTimers();
   });
 
-  it("shows notification on logout and hides it after 5 seconds", async () => {
+  it('shows notification on logout and hides it after 5 seconds', async () => {
     const mockLogout = jest.fn();
     (useAuthStore as unknown as jest.Mock).mockReturnValue({
-      user: { email: "test@example.com" },
-      profile: { full_name: "Test User" },
+      user: { email: 'test@example.com' },
+      profile: { full_name: 'Test User' },
       isAuthenticated: true,
       logout: mockLogout,
     });
@@ -73,17 +79,19 @@ describe("Header Logout Notification", () => {
     render(<Header />);
 
     // Open profile menu
-    const profileButton = screen.getByText("Test User");
+    const profileButton = screen.getByText('Test User');
     fireEvent.click(profileButton);
 
     // Click logout (use getAllByText because mobile menu also has one)
-    const logoutButtons = screen.getAllByText("Déconnexion");
+    const logoutButtons = screen.getAllByText('Déconnexion');
     fireEvent.click(logoutButtons[0]);
 
     // Wait for signOut to be called and message to appear
     await waitFor(() => {
       expect(signOut).toHaveBeenCalled();
-      expect(screen.getByText("Vous avez été déconnecté avec succès.")).toBeInTheDocument();
+      expect(
+        screen.getByText('Vous avez été déconnecté avec succès.')
+      ).toBeInTheDocument();
     });
 
     // Fast-forward time by 5 seconds
@@ -93,41 +101,47 @@ describe("Header Logout Notification", () => {
 
     // Check if message is gone
     await waitFor(() => {
-      expect(screen.queryByText("Vous avez été déconnecté avec succès.")).not.toBeInTheDocument();
+      expect(
+        screen.queryByText('Vous avez été déconnecté avec succès.')
+      ).not.toBeInTheDocument();
     });
   });
 
-  it("shows error notification if logout fails", async () => {
-     (useAuthStore as unknown as jest.Mock).mockReturnValue({
-      user: { email: "test@example.com" },
-      profile: { full_name: "Test User" },
+  it('shows error notification if logout fails', async () => {
+    (useAuthStore as unknown as jest.Mock).mockReturnValue({
+      user: { email: 'test@example.com' },
+      profile: { full_name: 'Test User' },
       isAuthenticated: true,
       logout: jest.fn(),
     });
 
-    (signOut as jest.Mock).mockResolvedValue({ error: "Erreur de déconnexion" });
+    (signOut as jest.Mock).mockResolvedValue({
+      error: 'Erreur de déconnexion',
+    });
 
     render(<Header />);
 
     // Open profile menu
-    const profileButton = screen.getByText("Test User");
+    const profileButton = screen.getByText('Test User');
     fireEvent.click(profileButton);
 
     // Click logout
-    const logoutButtons = screen.getAllByText("Déconnexion");
+    const logoutButtons = screen.getAllByText('Déconnexion');
     fireEvent.click(logoutButtons[0]);
 
     await waitFor(() => {
-      expect(screen.getByText("Erreur de déconnexion")).toBeInTheDocument();
+      expect(screen.getByText('Erreur de déconnexion')).toBeInTheDocument();
     });
-    
+
     // Also check that it disappears after 5 seconds
     act(() => {
-        jest.advanceTimersByTime(5000);
+      jest.advanceTimersByTime(5000);
     });
-    
-     await waitFor(() => {
-      expect(screen.queryByText("Erreur de déconnexion")).not.toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText('Erreur de déconnexion')
+      ).not.toBeInTheDocument();
     });
   });
 });
